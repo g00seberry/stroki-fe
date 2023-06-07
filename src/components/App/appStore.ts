@@ -30,7 +30,9 @@ export class AppStore {
 
   async registration({ email, password }: RegistraionFromData) {
     try {
-      await authService.registration(email, password)
+      const authData = await authService.registration(email, password)
+      this.setUser(authData.user)
+      setAuthToken(authData.accessToken)
     } catch (error) {
       onError(error)
     }
