@@ -1,8 +1,10 @@
-import { Button, Form, Space, Input } from 'antd'
+import { Input } from 'antd'
 import React, { useContext } from 'react'
 import { AppContext } from '../../AppContext'
 import { observer } from 'mobx-react-lite'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
+import { FormItemDef, FormStd } from '../FormStd/FormStd'
+import { formItemStd } from '../FormStd/formItems/formItemStd'
 
 export const Registraion: React.FC = observer(() => {
   const { appStore } = useContext(AppContext)
@@ -11,21 +13,17 @@ export const Registraion: React.FC = observer(() => {
     appStore.registration(values)
   const toLoginPage = () => appStore.setOverlay('login')
 
+  const formItems: FormItemDef[] = [
+    formItemStd('email', 'Email', Input),
+    formItemStd('password', 'Пароль', Input),
+  ]
   return (
-    <Form<RegistraionFromData> onFinish={register} layout="vertical">
-      <Form.Item name="userName" label="Имя или псевдоним">
-        <Input />
-      </Form.Item>
-      <Form.Item name="email" label="Email">
-        <Input />
-      </Form.Item>
-      <Form.Item name="password" label="Пароль">
-        <Input />
-      </Form.Item>
-      <Space>
-        <Button htmlType="submit">Регистрация</Button>
-        <Button onClick={toLoginPage}>Логин</Button>
-      </Space>
-    </Form>
+    <FormStd
+      formItems={formItems}
+      submit={register}
+      submitText="Зарегистрироваться"
+      cancelText="Логин"
+      cancel={toLoginPage}
+    />
   )
 })

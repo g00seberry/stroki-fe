@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   async getUsers(): Promise<User[]> {
-    const res = await $api.get('/api/auth/users')
+    const res = await $api.get('/api/users')
     return res.data
   }
 }
