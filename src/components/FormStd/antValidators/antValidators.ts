@@ -1,26 +1,26 @@
 import { Rule } from 'antd/es/form'
-
-export const phoneValidator = (): Rule => ({
-  pattern: /^(\+7)?[0-9]{3}[0-9]{3}[0-9]{4,6}$/,
-  message: 'Неверный формат телефонного номера',
-})
+import { t } from 'i18next'
 
 export const emailValidator = () => ({
   pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  message: 'Неверный формат email',
+  message: t('Validation.Invalid email format') || '',
 })
 
 export const required = (): Rule => ({
   required: true,
-  message: 'Обязательное поле',
+  message: t('Validation.The field is required') || '',
 })
 
-export const captchaLength = (): Rule => ({
-  min: 4,
-  message: 'Капча должна содержать 4 символа',
+export const digitsCount = (count: number, field: string): Rule => ({
+  len: count,
+  message:
+    t('Validation.There must be N digits in the S', {
+      num: count,
+      field: field,
+    }) || '',
 })
 
 export const onlyNumbers = (): Rule => ({
   pattern: /^\d*$/,
-  message: 'Только цифры',
+  message: t('Validation.Only numbers') || '',
 })

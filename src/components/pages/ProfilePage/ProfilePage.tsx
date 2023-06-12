@@ -1,6 +1,8 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
+import { useTranslation } from 'react-i18next'
 
 export const ProfilePage: React.FC = observer(() => {
-  return <h1>ProfilePage</h1>
+  const { t } = useTranslation()
+  return <h1>{t('Pages.Profile.Title')}</h1>
 })

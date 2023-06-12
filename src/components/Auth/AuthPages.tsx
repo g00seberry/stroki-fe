@@ -4,6 +4,7 @@ import { OverlayName } from '../App/appStore'
 import { Login } from './Login'
 import { Registraion } from './Registraion'
 import { AppContext } from '../../AppContext'
+import { LangSwitcher } from '../LangSwitcher/LangSwitcher'
 
 const authPagesMap: Record<OverlayName, React.ReactElement> = {
   login: <Login />,
@@ -12,5 +13,10 @@ const authPagesMap: Record<OverlayName, React.ReactElement> = {
 
 export const AuthPages: React.FC = observer(() => {
   const { appStore } = React.useContext(AppContext)
-  return authPagesMap[appStore.overlay]
+  return (
+    <div>
+      <LangSwitcher />
+      {authPagesMap[appStore.overlay]}
+    </div>
+  )
 })
