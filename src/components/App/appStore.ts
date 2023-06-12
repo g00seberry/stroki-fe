@@ -2,30 +2,36 @@ import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
 import { User } from '../../types/User'
 import { authService } from '../../services/AuthService'
-import { setAuthToken } from '../../common/api'
+import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 
 export type OverlayName = 'login' | 'registration'
 
 export class AppStore {
   user = {} as User
+  setUser(newUser: User) {
+    this.user = newUser
+  }
 
   get isLoggedIn() {
     return !!this.user.id
   }
 
   overlay: OverlayName = 'login'
-
   setOverlay(name: OverlayName) {
     this.overlay = name
   }
 
-  constructor() {
-    makeAutoObservable(this)
+  async init() {
+    try {
+      if (getAuthToken()) await appStore.refreshAuth()
+    } catch (error) {
+      onError(error)
+    }
   }
 
-  setUser(newUser: User) {
-    this.user = newUser
+  constructor() {
+    makeAutoObservable(this)
   }
 
   async registration({ email, password }: RegistraionFromData) {

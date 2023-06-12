@@ -15,7 +15,6 @@ export const setAuthToken = (value?: string) => {
       localStorage.removeItem(tokenKey)
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error(e)
   }
 }

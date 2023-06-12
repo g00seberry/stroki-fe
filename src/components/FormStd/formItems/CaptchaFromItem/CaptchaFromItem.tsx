@@ -5,12 +5,13 @@ import React from 'react'
 import { Rule } from 'antd/es/form'
 import { FormItemDef } from '../../FormStd'
 import style from './CaptchaFromItem.module.less'
-import { captchaLength, required } from '../../antValidators'
+import { digitsCount, required } from '../../antValidators'
+import { useTranslation } from 'react-i18next'
+import { t as getTranslate } from 'i18next'
 
-export type CaptchaRefObject = React.RefObject<{
-  initializeCaptcha: () => void
-}>
 export type CaptchaRefType = { initializeCaptcha: () => void }
+
+export type CaptchaRefObject = React.RefObject<CaptchaRefType>
 
 export const createCapthaHelpers = () => ({
   ref: React.useRef<CaptchaRefType>(null),
@@ -21,7 +22,9 @@ export const createCapthaHelpers = () => ({
 export const captchaValidator = (userInput: string): Rule => ({
   validator: (_, value: string) => {
     if (value !== userInput) {
-      return Promise.reject(new Error('Неправильный код с картинки'))
+      return Promise.reject(
+        new Error(getTranslate('Validation.Wrong code from picture') || '')
+      )
     }
     return Promise.resolve()
   },
@@ -42,11 +45,16 @@ export const CaptchaFormItem: React.FC<PropsCaptchaFormItem> = ({
   captchaRef,
 }: PropsCaptchaFormItem) => {
   const [captcha, setCaptcha] = React.useState('')
+  const { t } = useTranslation()
   return (
     <Form.Item
       label={label}
       name={name}
-      rules={[required(), captchaLength(), captchaValidator(captcha)]}
+      rules={[
+        required(),
+        digitsCount(4, t('Forms.Captcha')),
+        captchaValidator(captcha),
+      ]}
     >
       <div className={style.container}>
         <Input />
@@ -54,7 +62,7 @@ export const CaptchaFormItem: React.FC<PropsCaptchaFormItem> = ({
           setWord={setCaptcha}
           ref={captchaRef}
           inputEl={undefined}
-          reloadText="Обновить код"
+          reloadText={t('Forms.Reload captcha') || ''}
           backgroundColor="#c9deff"
           fontColor="#000"
         />

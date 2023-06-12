@@ -3,6 +3,7 @@ import { Button, Form, FormInstance, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import style from './FormStd.module.less'
+import { useTranslation } from 'react-i18next'
 
 export type FormItemDef = {
   render: (ctx?: FormInstance) => React.ReactNode
@@ -35,28 +36,31 @@ export const FormStd = observer(
     submit,
     cancel,
     ...props
-  }: PropsFormStd<TFormData>) => (
-    <Form
-      size="large"
-      layout="vertical"
-      scrollToFirstError
-      {...props}
-      onFinish={(values: TFormData) => submit(values)}
-    >
-      {heading && <div className={style.heading}>{heading}</div>}
+  }: PropsFormStd<TFormData>) => {
+    const { t } = useTranslation()
+    return (
+      <Form
+        size="large"
+        layout="vertical"
+        scrollToFirstError
+        {...props}
+        onFinish={(values: TFormData) => submit(values)}
+      >
+        {heading && <div className={style.heading}>{heading}</div>}
 
-      {formItems.map((item) => item.render())}
+        {formItems.map((item) => item.render())}
 
-      <Space>
-        <Button htmlType="submit" type="primary">
-          {submitText || 'Сохранить'}
-          {submitIcon}
-        </Button>
-        <Button onClick={() => cancel?.()} icon={cancelIcon}>
-          {cancelText || 'Отмена'}
-        </Button>
-        {extraButtons}
-      </Space>
-    </Form>
-  )
+        <Space>
+          <Button htmlType="submit" type="primary">
+            {submitText || t('Submit')}
+            {submitIcon}
+          </Button>
+          <Button onClick={() => cancel?.()} icon={cancelIcon}>
+            {cancelText || t('Cancel')}
+          </Button>
+          {extraButtons}
+        </Space>
+      </Form>
+    )
+  }
 )
