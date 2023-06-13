@@ -9,7 +9,11 @@ import { LangSwitcher } from '../LangSwitcher/LangSwitcher'
 import { PageUrl } from '../../common/router'
 import { useTranslation } from 'react-i18next'
 
-export const LayoutPage: React.FC = () => {
+type PropsLayoutPage = React.PropsWithChildren
+
+export const LayoutPage: React.FC<PropsLayoutPage> = ({
+  children,
+}: PropsLayoutPage) => {
   const { appStore } = useContext(AppContext)
   const { t } = useTranslation()
   const menuItems: MenuItemType[] = [
@@ -32,9 +36,7 @@ export const LayoutPage: React.FC = () => {
       <Header>
         <Menu theme="dark" mode="horizontal" items={menuItems} />
       </Header>
-      <Content>
-        <Outlet />
-      </Content>
+      <Content>{children ? children : <Outlet />}</Content>
     </Layout>
   )
 }

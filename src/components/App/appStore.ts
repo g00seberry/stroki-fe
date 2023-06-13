@@ -1,9 +1,10 @@
 import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
 import { User } from '../../types/User'
-import { authService } from '../../services/AuthService'
 import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
+import { AuthService } from '../../services/AuthService'
+import { UserService } from '../../services/UserService'
 
 export type OverlayName = 'login' | 'registration'
 
@@ -36,7 +37,7 @@ export class AppStore {
 
   async registration({ email, password }: RegistraionFromData) {
     try {
-      const authData = await authService.registration(email, password)
+      const authData = await AuthService.registration(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
     } catch (error) {
@@ -46,7 +47,7 @@ export class AppStore {
 
   async login({ email, password }: RegistraionFromData) {
     try {
-      const authData = await authService.login(email, password)
+      const authData = await AuthService.login(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
     } catch (error) {
@@ -56,7 +57,7 @@ export class AppStore {
 
   async logout() {
     try {
-      await authService.logout()
+      await AuthService.logout()
       this.setUser({} as User)
       setAuthToken()
     } catch (error) {
@@ -66,7 +67,7 @@ export class AppStore {
 
   async refreshAuth() {
     try {
-      const authData = await authService.refreshAuth()
+      const authData = await AuthService.refreshAuth()
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
       return authData
@@ -77,7 +78,7 @@ export class AppStore {
 
   async getUsers() {
     try {
-      return await authService.getUsers()
+      return await UserService.getUsers()
     } catch (error) {
       onError(error)
     }
