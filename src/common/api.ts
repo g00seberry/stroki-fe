@@ -1,9 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import axios, { AxiosError } from 'axios'
 import { onError } from './getErrorMessage'
 import { logout } from '../components/App/appStore'
-import { authService } from '../services/AuthService'
+import { AuthService } from '../services/AuthService'
 
 const tokenKey = 'accessToken'
 
@@ -42,7 +40,9 @@ $api.interceptors.request.use((config) => {
 $api.interceptors.response.use(
   (config) => config,
   async (error: AxiosError) => {
-    const originalRequest = error.response
+    const originalRequest = error.response as typeof error.response & {
+      config: { _isRetry: boolean }
+    }
     if (
       originalRequest &&
       originalRequest.status == 401 &&
@@ -50,7 +50,7 @@ $api.interceptors.response.use(
     ) {
       try {
         originalRequest.config._isRetry = true
-        const resp = await authService.refreshAuth()
+        const resp = await AuthService.refreshAuth()
         setAuthToken(resp.accessToken)
         return $api.request(originalRequest.config)
       } catch (error) {
