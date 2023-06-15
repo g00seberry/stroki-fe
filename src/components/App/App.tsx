@@ -3,7 +3,7 @@ import { AppContext } from '../../AppContext'
 import { observer } from 'mobx-react-lite'
 import { AuthPages } from '../Auth/AuthPages'
 import { RouterProvider } from 'react-router-dom'
-import { router } from '../../common/router'
+import { router, routerNotActivated } from '../../common/router'
 
 export const App = observer(() => {
   const { appStore } = useContext(AppContext)
@@ -16,7 +16,9 @@ export const App = observer(() => {
 
   return (
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <RouterProvider
+        router={appStore.isActivated ? router : routerNotActivated}
+      />
     </React.StrictMode>
   )
 })

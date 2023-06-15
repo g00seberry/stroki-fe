@@ -1,9 +1,10 @@
 import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import { LayoutPage } from '../components/pages/LayoutPage'
 import { ProfilePage } from '../components/pages/ProfilePage/ProfilePage'
 import { SettingsPage } from '../components/pages/SettingsPage/SettingsPage'
 import { NoMatch } from '../components/pages/NoMatch/NoMatch'
+import { UserIsNotActivated } from '../components/pages/UserIsNotActivated/UserIsNotActivated'
 
 export enum PageUrl {
   Root = '/',
@@ -24,5 +25,17 @@ export const router = createBrowserRouter([
         <NoMatch />
       </LayoutPage>
     ),
+  },
+])
+
+export const routerNotActivated = createBrowserRouter([
+  {
+    path: PageUrl.Root,
+    element: (
+      <LayoutPage>
+        <UserIsNotActivated />
+      </LayoutPage>
+    ),
+    errorElement: <Navigate to={PageUrl.Root} />,
   },
 ])
