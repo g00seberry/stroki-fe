@@ -1,8 +1,23 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { useTranslation } from 'react-i18next'
+import { User } from '../../../types/User'
+import { UserService } from '../../../services/UserService'
 
 export const ProfilePage: React.FC = observer(() => {
   const { t } = useTranslation()
-  return <h1>{t('Pages.Profile.Title')}</h1>
+  const [users, setUsers] = React.useState<User[]>([])
+  React.useEffect(() => {
+    UserService.getUsers().then(setUsers)
+  }, [])
+  return (
+    <>
+      <h1>{t('Pages.Profile.Title')}</h1>
+      <div>
+        {users.map((u) => (
+          <div key={u.email}>{u.email}</div>
+        ))}
+      </div>
+    </>
+  )
 })

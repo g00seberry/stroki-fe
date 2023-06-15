@@ -18,6 +18,10 @@ export class AppStore {
     return !!this.user.id
   }
 
+  get isActivated() {
+    return !this.user.roles.includes('draft')
+  }
+
   overlay: OverlayName = 'login'
   setOverlay(name: OverlayName) {
     this.overlay = name
