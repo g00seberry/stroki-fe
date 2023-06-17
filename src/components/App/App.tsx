@@ -1,9 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../../AppContext'
 import { observer } from 'mobx-react-lite'
-import { AuthPages } from '../Auth/AuthPages'
 import { RouterProvider } from 'react-router-dom'
-import { router, routerNotActivated } from '../../common/router'
+import { router, routerNotActivated, routerNotAuth } from '../../common/router'
 
 export const App = observer(() => {
   const { appStore } = useContext(AppContext)
@@ -12,13 +11,15 @@ export const App = observer(() => {
     appStore.init()
   }, [])
 
-  if (!appStore.isLoggedIn) return <AuthPages />
-
   return (
     <React.StrictMode>
-      <RouterProvider
-        router={appStore.isActivated ? router : routerNotActivated}
-      />
+      {appStore.isLoggedIn && appStore.isActivated && (
+        <RouterProvider router={router} />
+      )}
+      {appStore.isLoggedIn && !appStore.isActivated && (
+        <RouterProvider router={routerNotActivated} />
+      )}
+      {!appStore.isLoggedIn && <RouterProvider router={routerNotAuth} />}
     </React.StrictMode>
   )
 })

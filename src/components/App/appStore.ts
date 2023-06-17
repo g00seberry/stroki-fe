@@ -6,8 +6,6 @@ import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
 import { UserService } from '../../services/UserService'
 
-export type OverlayName = 'login' | 'registration'
-
 export class AppStore {
   user = {} as User
   setUser(newUser: User) {
@@ -22,9 +20,13 @@ export class AppStore {
     return !this.user.roles.includes('draft')
   }
 
-  overlay: OverlayName = 'login'
-  setOverlay(name: OverlayName) {
-    this.overlay = name
+  loading = false
+  setLoading(loading: boolean) {
+    this.loading = loading
+  }
+
+  constructor() {
+    makeAutoObservable(this)
   }
 
   async init() {
@@ -35,17 +37,15 @@ export class AppStore {
     }
   }
 
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  async registration({ email, password }: RegistraionFromData) {
+  async signUp({ email, password }: RegistraionFromData) {
     try {
-      const authData = await AuthService.registration(email, password)
+      const authData = await AuthService.signUp(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
+      return true
     } catch (error) {
       onError(error)
+      return false
     }
   }
 
@@ -54,8 +54,10 @@ export class AppStore {
       const authData = await AuthService.login(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
+      return true
     } catch (error) {
       onError(error)
+      return false
     }
   }
 

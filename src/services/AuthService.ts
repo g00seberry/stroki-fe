@@ -2,11 +2,8 @@ import axios from 'axios'
 import { AuthResponse } from '../types/AuthResponse'
 
 export class AuthService {
-  static async registration(
-    email: string,
-    password: string
-  ): Promise<AuthResponse> {
-    const res = await axios.post('/api/auth/registration', { email, password })
+  static async signUp(email: string, password: string): Promise<AuthResponse> {
+    const res = await axios.post('/api/auth/sign-up', { email, password })
     return res.data
   }
 
