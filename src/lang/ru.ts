@@ -1,7 +1,7 @@
 export default {
   translation: {
     Forms: {
-      Registration: 'Регистрация',
+      'Sign up': 'Регистрация',
       Login: 'Логин',
       Email: 'Email',
       Enter: 'Войти',
@@ -28,6 +28,9 @@ export default {
       Settings: { Title: 'Настройки' },
       Profile: { Title: 'Профиль' },
     },
+    Back: 'Назад',
     Logout: 'Выйти',
+    Login: 'Войти',
+    'Sign up': 'Регистрация',
   },
 }
