@@ -4,7 +4,6 @@ import { User } from '../../types/User'
 import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
-import { UserService } from '../../services/UserService'
 import { hasRole, hasRolesOR } from '../../common/user'
 
 export class AppStore {
@@ -82,14 +81,6 @@ export class AppStore {
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
       return authData
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  async getUsers() {
-    try {
-      return await UserService.getUsers()
     } catch (error) {
       onError(error)
     }

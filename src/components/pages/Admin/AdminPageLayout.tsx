@@ -9,6 +9,7 @@ import { Link, Outlet } from 'react-router-dom'
 import { createWithCond, filterWithCond } from '../../../common/WithCond'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
+import style from './AdminPageLayout.module.less'
 
 type PropsAdminPageLayout = React.PropsWithChildren & {
   pageTitle?: React.ReactNode
@@ -29,11 +30,11 @@ export const AdminPageLayout: React.FC<PropsAdminPageLayout> = observer(
     return (
       <PageLayout>
         <Layout>
-          <Sider width={200}>
+          <Sider>
             <Menu items={filterWithCond(menuItems)} />
           </Sider>
-          <Content>
-            {pageTitle && <div>{pageTitle}</div>}
+          <Content className={style.content}>
+            {pageTitle && <div className={style.heading}>{pageTitle}</div>}
             {children ? children : <Outlet />}
           </Content>
         </Layout>
