@@ -18,16 +18,19 @@
   "author": "Gooseberry",
   "license": "MIT",
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@nabidam/react-captcha": "^1.2.0",
     "antd": "^5.4.6",
     "axios": "^1.4.0",
     "i18next": "^22.5.1",
     "mobx": "^6.9.0",
     "mobx-react-lite": "^3.4.3",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.3.1",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.11.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

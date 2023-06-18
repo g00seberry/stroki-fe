@@ -1,11 +1,10 @@
 import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
 import { User } from '../../types/User'
-import { authService } from '../../services/AuthService'
 import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
-
-export type OverlayName = 'login' | 'registration'
+import { AuthService } from '../../services/AuthService'
+import { hasRole, hasRolesOR } from '../../common/user'
 
 export class AppStore {
   user = {} as User
@@ -17,9 +16,21 @@ export class AppStore {
     return !!this.user.id
   }
 
-  overlay: OverlayName = 'login'
-  setOverlay(name: OverlayName) {
-    this.overlay = name
+  get isActivated() {
+    return !hasRole(this.user, 'draft')
+  }
+
+  get isAdmin() {
+    return hasRolesOR(this.user, ['admin', 'super'])
+  }
+
+  loading = false
+  setLoading(loading: boolean) {
+    this.loading = loading
+  }
+
+  constructor() {
+    makeAutoObservable(this)
   }
 
   async init() {
@@ -30,33 +41,33 @@ export class AppStore {
     }
   }
 
-  constructor() {
-    makeAutoObservable(this)
-  }
-
-  async registration({ email, password }: RegistraionFromData) {
+  async signUp({ email, password }: RegistraionFromData) {
     try {
-      const authData = await authService.registration(email, password)
+      const authData = await AuthService.signUp(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
+      return true
     } catch (error) {
       onError(error)
+      return false
     }
   }
 
   async login({ email, password }: RegistraionFromData) {
     try {
-      const authData = await authService.login(email, password)
+      const authData = await AuthService.login(email, password)
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
+      return true
     } catch (error) {
       onError(error)
+      return false
     }
   }
 
   async logout() {
     try {
-      await authService.logout()
+      await AuthService.logout()
       this.setUser({} as User)
       setAuthToken()
     } catch (error) {
@@ -66,18 +77,10 @@ export class AppStore {
 
   async refreshAuth() {
     try {
-      const authData = await authService.refreshAuth()
+      const authData = await AuthService.refreshAuth()
       this.setUser(authData.user)
       setAuthToken(authData.accessToken)
       return authData
-    } catch (error) {
-      onError(error)
-    }
-  }
-
-  async getUsers() {
-    try {
-      return await authService.getUsers()
     } catch (error) {
       onError(error)
     }
