@@ -27,6 +27,12 @@ export default {
     Pages: {
       Settings: { Title: 'Настройки' },
       Profile: { Title: 'Профиль' },
+      Admin: {
+        Title: 'Администрирование',
+        Pages: {
+          Users: { Title: 'Пользователи' },
+        },
+      },
     },
     Back: 'Назад',
     Logout: 'Выйти',
