@@ -28,6 +28,12 @@ export default {
     Pages: {
       Settings: { Title: 'Settings' },
       Profile: { Title: 'Profile' },
+      Admin: {
+        Title: 'Administration',
+        Pages: {
+          Users: { Title: 'Users' },
+        },
+      },
     },
     Back: 'Back',
     Logout: 'Logout',

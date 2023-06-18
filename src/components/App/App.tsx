@@ -1,12 +1,16 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../../AppContext'
 import { observer } from 'mobx-react-lite'
-import { RouterProvider } from 'react-router-dom'
-import { router, routerNotActivated, routerNotAuth } from '../../common/router'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  createAppRoutes,
+  routerNotActivated,
+  routerNotAuth,
+} from '../../common/router'
 
 export const App = observer(() => {
   const { appStore } = useContext(AppContext)
-
+  const router = createBrowserRouter(createAppRoutes(appStore))
   useEffect(() => {
     appStore.init()
   }, [])

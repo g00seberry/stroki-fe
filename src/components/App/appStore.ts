@@ -5,6 +5,7 @@ import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
 import { UserService } from '../../services/UserService'
+import { hasRole, hasRolesOR } from '../../common/user'
 
 export class AppStore {
   user = {} as User
@@ -17,7 +18,11 @@ export class AppStore {
   }
 
   get isActivated() {
-    return !this.user.roles.includes('draft')
+    return !hasRole(this.user, 'draft')
+  }
+
+  get isAdmin() {
+    return hasRolesOR(this.user, ['admin', 'super'])
   }
 
   loading = false

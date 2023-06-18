@@ -18,6 +18,7 @@
   "author": "Gooseberry",
   "license": "MIT",
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@nabidam/react-captcha": "^1.2.0",
     "antd": "^5.4.6",
     "axios": "^1.4.0",
