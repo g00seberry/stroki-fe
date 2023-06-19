@@ -6,6 +6,11 @@ import { getApiUrl } from '../../../../common/getApiUrl'
 export const ZUserRow = z.object({
   id: z.number(),
   email: z.string(),
+  roles: z
+    .object({
+      role: z.string(),
+    })
+    .array(),
 })
 
 export type ZUserRow = z.infer<typeof ZUserRow>

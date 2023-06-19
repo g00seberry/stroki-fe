@@ -1,5 +1,13 @@
 export default {
   translation: {
+    User: {
+      Roles: {
+        draft: 'Draft',
+        user: 'User',
+        admin: 'Admin',
+        super: 'Super-admin',
+      },
+    },
     Forms: {
       'Sign up': 'Sign up',
       Login: 'Login',
@@ -7,6 +15,7 @@ export default {
       Enter: 'Enter',
       Password: 'Password',
       Captcha: 'Captcha',
+      Roles: 'Roles',
       'Reload captcha': 'Reload captcha',
       Submit: 'Submit',
       Cancel: 'Cancel',
