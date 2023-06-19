@@ -1,5 +1,13 @@
 export default {
   translation: {
+    User: {
+      Roles: {
+        draft: 'Неактивный',
+        user: 'Пользователь',
+        admin: 'Админ',
+        super: 'Супер-админ',
+      },
+    },
     Forms: {
       'Sign up': 'Регистрация',
       Login: 'Логин',
@@ -7,6 +15,7 @@ export default {
       Enter: 'Войти',
       Password: 'Пароль',
       Captcha: 'Капча',
+      Roles: 'Роли',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',

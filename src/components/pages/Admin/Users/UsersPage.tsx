@@ -7,7 +7,7 @@ import { TableFacade } from '../../../tables/TableFacade'
 import { AColumn } from '../../../tables/AsyncTable'
 import { UserFilters, ZUserRow, usersStore } from './usersStore'
 import { FilterFieldsDict, filterItem } from '../../../tables/FiltersForm'
-import { Input } from 'antd'
+import { Input, Tag } from 'antd'
 import { t } from 'i18next'
 
 const columns = (): AColumn<ZUserRow>[] => [
@@ -20,9 +20,18 @@ const columns = (): AColumn<ZUserRow>[] => [
   },
   {
     key: 'email',
-    title: t('email'),
+    title: t('Email'),
     dataIndex: 'email',
     sorter: true,
+  },
+  {
+    key: 'roles',
+    title: t('Forms.Roles'),
+    render: (_, row: ZUserRow) => {
+      return row.roles.map(({ role }) => (
+        <Tag key={role}>{t(`User.Roles.${role}`)}</Tag>
+      ))
+    },
   },
 ]
 
