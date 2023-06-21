@@ -1,6 +1,7 @@
-import { User, UserRole } from '../types/User'
+import { UserRole, ZUser } from '../types/ZUser'
 
-export const hasRole = (user: Partial<User>, role: UserRole) =>
+export const hasRole = (user: Partial<ZUser>, role: UserRole) =>
   user.roles?.includes(role)
-export const hasRolesOR = (user: Partial<User>, roles: UserRole[]) =>
+
+export const hasRolesOR = (user: Partial<ZUser>, roles: UserRole[]) =>
   !!roles.find((r) => hasRole(user, r))

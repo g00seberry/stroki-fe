@@ -11,6 +11,7 @@ import { Login } from '../components/pages/Auth/Login'
 import { SignUp } from '../components/pages/Auth/SignUp'
 import { UserIsNotActivated } from '../components/pages/UserIsNotActivated/UserIsNotActivated'
 import { UsersPage } from '../components/pages/Admin/Users/UsersPage'
+import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle'
 
 export enum PageUrl {
   Root = '/',
@@ -44,6 +45,10 @@ export const createAppRoutes = (appStore: AppStore): RouteObject[] => {
     createWithCond(createRouteStd(PageUrl.Settings, <SettingsPage />)),
     createWithCond(createRouteStd(PageUrl.Admin, <AdminPage />), isAdmin),
     createWithCond(createRouteStd(PageUrl.Users, <UsersPage />), isAdmin),
+    createWithCond(
+      createRouteStd(PageUrl.UsersSingle, <UsersPageSingle />),
+      isAdmin
+    ),
   ]
 
   return filterWithCond(routesWithcond)

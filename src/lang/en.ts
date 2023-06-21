@@ -41,6 +41,7 @@ export default {
         Title: 'Administration',
         Pages: {
           Users: { Title: 'Users' },
+          'User {email}': { Title: 'User {{email}}' },
         },
       },
     },
