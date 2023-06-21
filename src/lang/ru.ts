@@ -40,6 +40,7 @@ export default {
         Title: 'Администрирование',
         Pages: {
           Users: { Title: 'Пользователи' },
+          'User {email}': { Title: 'Пользователь {{email}}' },
         },
       },
     },

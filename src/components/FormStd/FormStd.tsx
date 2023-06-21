@@ -52,11 +52,11 @@ export const FormStd = observer(
 
         <Space>
           <Button htmlType="submit" type="primary">
-            {submitText || t('Submit')}
+            {submitText || t('Forms.Submit')}
             {submitIcon}
           </Button>
           <Button onClick={() => cancel?.()} icon={cancelIcon}>
-            {cancelText || t('Cancel')}
+            {cancelText || t('Forms.Cancel')}
           </Button>
           {extraButtons}
         </Space>

@@ -5,12 +5,16 @@ import { AdminPageLayout } from '../AdminPageLayout'
 import { TablePageLayout } from '../../../tables/TablePageLayout'
 import { TableFacade } from '../../../tables/TableFacade'
 import { AColumn } from '../../../tables/AsyncTable'
-import { UserFilters, ZUserRow, usersStore } from './usersStore'
+import { UserFilters, usersStore } from './usersStore'
 import { FilterFieldsDict, filterItem } from '../../../tables/FiltersForm'
 import { Input, Tag } from 'antd'
 import { t } from 'i18next'
+import { useNavigate } from 'react-router-dom'
+import { PageUrl } from '../../../../common/router'
+import { makeUrl } from '../../../../common/makeUrl'
+import { ZUser } from '../../../../types/ZUser'
 
-const columns = (): AColumn<ZUserRow>[] => [
+const columns = (): AColumn<ZUser>[] => [
   {
     key: 'id',
     title: 'ID',
@@ -27,8 +31,8 @@ const columns = (): AColumn<ZUserRow>[] => [
   {
     key: 'roles',
     title: t('Forms.Roles'),
-    render: (_, row: ZUserRow) => {
-      return row.roles.map(({ role }) => (
+    render: (_, row: ZUser) => {
+      return row.roles.map((role) => (
         <Tag key={role}>{t(`User.Roles.${role}`)}</Tag>
       ))
     },
@@ -45,6 +49,10 @@ const filterItems = (): FilterFieldsDict<UserFilters> => ({
 })
 
 const UsersTable: React.FC = observer(() => {
+  const navigate = useNavigate()
+  const toUserPage = (user: ZUser) =>
+    navigate(makeUrl(PageUrl.UsersSingle, { id: user.id }))
+
   return (
     <TablePageLayout>
       <TableFacade
@@ -52,6 +60,7 @@ const UsersTable: React.FC = observer(() => {
         columns={columns()}
         filterItems={filterItems()}
         showSettings={true}
+        onRowClick={toUserPage}
       />
     </TablePageLayout>
   )

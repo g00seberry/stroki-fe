@@ -1,14 +1,14 @@
 import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
-import { User } from '../../types/User'
+import { ZUser } from '../../types/ZUser'
 import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
 import { hasRole, hasRolesOR } from '../../common/user'
 
 export class AppStore {
-  user = {} as User
-  setUser(newUser: User) {
+  user = {} as ZUser
+  setUser(newUser: ZUser) {
     this.user = newUser
   }
 
@@ -35,7 +35,7 @@ export class AppStore {
 
   async init() {
     try {
-      if (getAuthToken()) await appStore.refreshAuth()
+      if (getAuthToken()) await this.refreshAuth()
     } catch (error) {
       onError(error)
     }
@@ -44,7 +44,8 @@ export class AppStore {
   async signUp({ email, password }: RegistraionFromData) {
     try {
       const authData = await AuthService.signUp(email, password)
-      this.setUser(authData.user)
+      const user = ZUser.parse(authData.user)
+      this.setUser(user)
       setAuthToken(authData.accessToken)
       return true
     } catch (error) {
@@ -56,7 +57,8 @@ export class AppStore {
   async login({ email, password }: RegistraionFromData) {
     try {
       const authData = await AuthService.login(email, password)
-      this.setUser(authData.user)
+      const user = ZUser.parse(authData.user)
+      this.setUser(user)
       setAuthToken(authData.accessToken)
       return true
     } catch (error) {
@@ -68,7 +70,7 @@ export class AppStore {
   async logout() {
     try {
       await AuthService.logout()
-      this.setUser({} as User)
+      this.setUser({} as ZUser)
       setAuthToken()
     } catch (error) {
       onError(error)
@@ -78,7 +80,8 @@ export class AppStore {
   async refreshAuth() {
     try {
       const authData = await AuthService.refreshAuth()
-      this.setUser(authData.user)
+      const user = ZUser.parse(authData.user)
+      this.setUser(user)
       setAuthToken(authData.accessToken)
       return authData
     } catch (error) {
