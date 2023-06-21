@@ -1,1 +1,1 @@
-export * from "./ColumnsSettings";
+export * from './ColumnsSettings'

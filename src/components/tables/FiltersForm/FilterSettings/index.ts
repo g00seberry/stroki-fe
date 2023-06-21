@@ -1,1 +1,1 @@
-export * from "./FilterSettingsStore";
+export * from './FilterSettingsStore'

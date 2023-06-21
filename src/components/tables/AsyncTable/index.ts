@@ -1,1 +1,1 @@
-export * from "./AsyncTable";
+export * from './AsyncTable'
