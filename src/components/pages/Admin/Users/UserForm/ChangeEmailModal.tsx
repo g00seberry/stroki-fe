@@ -3,13 +3,13 @@ import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { FormItemDef, FormStd } from '../../../../FormStd/FormStd'
 import { t } from 'i18next'
-import { UserFormData, UserFromStore } from './userFromStore'
+import { UserFormData, UserFormStore } from './userFormStore'
 import { formItemEmailStd } from '../../../../FormStd/formItems/formItemEmail'
 
 interface PropsChangeEmailModal {
   open: boolean
   close(): void
-  store: UserFromStore
+  store: UserFormStore
 }
 
 export const ChangeEmailModal: React.FC<PropsChangeEmailModal> = observer(
