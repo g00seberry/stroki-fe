@@ -42,6 +42,8 @@ export default {
         Pages: {
           Users: { Title: 'Users' },
           'User {email}': { Title: 'User {{email}}' },
+          Roles: { Title: 'Roles' },
+          'Roles {role}': { Title: 'Role - {{role}}' },
         },
       },
     },

@@ -12,6 +12,8 @@ import { SignUp } from '../components/pages/Auth/SignUp'
 import { UserIsNotActivated } from '../components/pages/UserIsNotActivated/UserIsNotActivated'
 import { UsersPage } from '../components/pages/Admin/Users/UsersPage'
 import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle'
+import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
+import { RolesPageSingle } from '../components/pages/Admin/Roles/RolesPageSingle'
 
 export enum PageUrl {
   Root = '/',
@@ -25,6 +27,9 @@ export enum PageUrl {
   Admin = '/admin',
   Users = '/admin/users',
   UsersSingle = '/admin/users/:id',
+  Roles = '/admin/roles',
+  RolesSingle = '/admin/roles/:id',
+  RolesSingleNew = '/admin/roles/new',
 }
 
 export const createRouteStd = (
@@ -44,9 +49,20 @@ export const createAppRoutes = (appStore: AppStore): RouteObject[] => {
     createWithCond(createRouteStd(PageUrl.Root, <ProfilePage />)),
     createWithCond(createRouteStd(PageUrl.Settings, <SettingsPage />)),
     createWithCond(createRouteStd(PageUrl.Admin, <AdminPage />), isAdmin),
+    // Users
     createWithCond(createRouteStd(PageUrl.Users, <UsersPage />), isAdmin),
     createWithCond(
       createRouteStd(PageUrl.UsersSingle, <UsersPageSingle />),
+      isAdmin
+    ),
+    // Roles
+    createWithCond(createRouteStd(PageUrl.Roles, <RolesPage />), isAdmin),
+    createWithCond(
+      createRouteStd(PageUrl.RolesSingle, <RolesPageSingle />),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(PageUrl.RolesSingleNew, <RolesPageSingle />),
       isAdmin
     ),
   ]

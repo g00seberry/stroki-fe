@@ -10,7 +10,7 @@ export type UserFilters = {
 export class UsersStore {
   tableStore = new TableStore<ZUser, UserFilters>({
     fnLoad: tableLoader<ZUser, UserFilters>(
-      getApiUrl('searchUsers'),
+      getApiUrl('usersSearch'),
       ZUser,
       getTableData
     ),

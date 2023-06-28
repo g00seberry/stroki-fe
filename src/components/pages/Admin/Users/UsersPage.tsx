@@ -30,10 +30,10 @@ const columns = (): AColumn<ZUser>[] => [
   },
   {
     key: 'roles',
-    title: t('Forms.Roles'),
+    title: t('Roles'),
     render: (_, row: ZUser) => {
       return row.roles.map((role) => (
-        <Tag key={role}>{t(`User.Roles.${role}`)}</Tag>
+        <Tag key={role.id}>{t(`User.Roles.${role.role}`)}</Tag>
       ))
     },
   },

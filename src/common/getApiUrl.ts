@@ -8,12 +8,16 @@ export const apiUrls = {
   logout: '/auth/logout',
   refresh: '/auth/refresh',
   // users
-  searchUsers: '/users/search',
-  getUser: '/users/user',
+  usersSearch: '/users/search',
+  getUser: '/users/user/:id',
   updateUser: '/users/user/:id',
   changeMail: '/users/user/:id/mail/change',
   //roles
   roles: '/roles',
+  role: '/roles/role/:id',
+  roleNew: '/roles/role/new',
+  rolesSearch: '/roles/search',
+  rolesDelete: '/roles/delete',
 }
 
 export const getApiUrl = (url: keyof typeof apiUrls) =>

@@ -1,5 +1,8 @@
 export default {
   translation: {
+    Roles: 'Роли',
+    Roles_one: 'Роль',
+    // old
     User: {
       Roles: {
         draft: 'Неактивный',
@@ -16,6 +19,7 @@ export default {
       Password: 'Пароль',
       Captcha: 'Капча',
       Roles: 'Роли',
+      Roles_one: 'Роль',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',
@@ -41,6 +45,8 @@ export default {
         Pages: {
           Users: { Title: 'Пользователи' },
           'User {email}': { Title: 'Пользователь {{email}}' },
+          Roles: { Title: 'Роли' },
+          'Roles {role}': { Title: 'Роль - {{role}}' },
         },
       },
     },
