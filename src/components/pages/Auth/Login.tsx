@@ -5,26 +5,32 @@ import { observer } from 'mobx-react-lite'
 import { RegistraionFromData } from '../../../types/RegistraionFromData'
 import { FormItemDef, FormStd } from '../../FormStd/FormStd'
 import { formItemStd } from '../../FormStd/formItems/formItemStd'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
 import { Link } from 'react-router-dom'
-import { required } from '../../FormStd/antValidators'
+import { emailValidator, required } from '../../FormStd/antValidators'
+import { tForms } from '../../../lang/shortcuts'
+import { t } from 'i18next'
 
 export const Login: React.FC = observer(() => {
   const { appStore } = useContext(AppContext)
-  const { t } = useTranslation()
   const login = (values: RegistraionFromData) =>
     appStore.login(values).then((success) => success && navigate(PageUrl.Root))
 
   const navigate = useNavigate()
   const toPrevPage = () => navigate(-1)
   const formItems: FormItemDef[] = [
-    formItemStd('email', t('Forms.Email'), Input, {}, { rules: [required()] }),
+    formItemStd(
+      'email',
+      tForms('Email'),
+      Input,
+      {},
+      { rules: [required(), emailValidator()] }
+    ),
     formItemStd(
       'password',
-      t('Forms.Password'),
+      tForms('Password'),
       Input.Password,
       {},
       { rules: [required()] }

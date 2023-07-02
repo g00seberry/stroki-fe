@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useTranslation } from 'react-i18next'
 import { AdminPageLayout } from '../AdminPageLayout'
 import { TablePageLayout } from '../../../tables/TablePageLayout'
 import { TableFacade } from '../../../tables/TableFacade'
@@ -14,6 +13,7 @@ import { t } from 'i18next'
 import { Button, Space } from 'antd'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { DeleteButton } from './DeleteButton'
+import { tPagesTitles } from '../../../../lang/shortcuts'
 
 const columns = (): AColumn<ZRole>[] => [
   {
@@ -34,12 +34,7 @@ const RolesTable: React.FC = observer(() => {
   const navigate = useNavigate()
   const toRolePage = (role: ZRole) =>
     navigate(makeUrl(PageUrl.RolesSingle, { id: role.id }))
-
   const toCreateRolePage = () => navigate(PageUrl.RolesSingleNew)
-  /**
-   * TODO
-   * -локализация
-   */
   return (
     <TablePageLayout>
       <TableFacade
@@ -54,7 +49,7 @@ const RolesTable: React.FC = observer(() => {
               onClick={toCreateRolePage}
               icon={<PlusCircleOutlined />}
             >
-              Создать
+              {t('Create')}
             </Button>
             <DeleteButton store={rolesStore} />
           </Space>
@@ -65,9 +60,8 @@ const RolesTable: React.FC = observer(() => {
 })
 
 export const RolesPage: React.FC = observer(() => {
-  const { t } = useTranslation()
   return (
-    <AdminPageLayout pageTitle={t('Pages.Admin.Pages.Roles.Title')}>
+    <AdminPageLayout pageTitle={tPagesTitles('Adimin roles')}>
       <RolesTable />
     </AdminPageLayout>
   )

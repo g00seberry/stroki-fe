@@ -1,20 +1,28 @@
 export default {
   translation: {
-    User: {
-      Roles: {
-        draft: 'Draft',
-        user: 'User',
-        admin: 'Admin',
-        super: 'Super-admin',
-      },
+    Roles: 'Roles',
+    Roles_one: 'Role',
+    RoleLabels: {
+      draft: 'draft',
+      user: 'user',
+      admin: 'admin',
+      super: 'super',
+    },
+    Messages: {
+      'User updated successfully': 'User updated successfully',
+      'Password changed successfully': 'Password changed successfully',
+      'An email with instructions has been sent to your email':
+        'An email with instructions has been sent to your email',
+      'Roles removed': 'Roles removed',
+      'Role updated': 'Role updated',
+      'Role created': 'Role created',
     },
     Forms: {
-      'Sign up': 'Sign up',
       Login: 'Login',
       Email: 'Email',
       Password: 'Password',
+      'Confirm password': 'Confirm password',
       Captcha: 'Captcha',
-      Roles: 'Roles',
       'Reload captcha': 'Reload captcha',
       Submit: 'Submit',
       Cancel: 'Cancel',
@@ -28,27 +36,27 @@ export default {
       'Invalid email format': 'Invalid email format',
       'Only numbers': 'Only numbers',
       'The field is required': 'The field is required',
-      'There must be N digits in the S':
-        'There must be {{num}} digits in the {{field}}',
+      'There must be N digits in the S': 'There must be N digits in the S',
       "Passwords don't match": "Passwords don't match",
       'Wrong code from picture': 'Wrong code from picture',
     },
-    Pages: {
-      Settings: { Title: 'Settings' },
-      Profile: { Title: 'Profile' },
-      Admin: {
-        Title: 'Administration',
-        Pages: {
-          Users: { Title: 'Users' },
-          'User {email}': { Title: 'User {{email}}' },
-          Roles: { Title: 'Roles' },
-          'Roles {role}': { Title: 'Role - {{role}}' },
-        },
-      },
+    'Pages titles': {
+      Settings: 'Settings',
+      Profile: 'Profile',
+      Adimin: 'Adimin',
+      'Adimin users': 'Users',
+      'Adimin users single': 'User: {{email}}',
+      'Adimin roles': 'Roles',
+      'Adimin roles single': 'Role: {{role}}',
     },
+
+    'Reset password': 'Reset password',
+    'Forgot your password?': 'Forgot your password?',
     Back: 'Back',
     Logout: 'Logout',
     Login: 'Login',
     'Sign up': 'Sign up',
+    Create: 'Create',
+    Delete: 'Удалить',
   },
 }

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 import { notification } from 'antd'
 import { ArgsProps } from 'antd/es/notification/interface'
-import { t } from 'i18next'
+import { tErrors } from '../lang/shortcuts'
 
 export const getErrorMessage = (e: Error): ArgsProps => {
   // eslint-disable-next-line no-console
@@ -23,12 +23,12 @@ export const getErrorMessage = (e: Error): ArgsProps => {
         description
     }
     if (axiosError?.response?.status === 400) {
-      return { message: t('Errors.Attention'), description, type: 'warning' }
+      return { message: tErrors('Attention'), description, type: 'warning' }
     }
     if (axiosError?.response?.status === 403) {
-      return { message: t('Errors.Forbidden') }
+      return { message: tErrors('Forbidden') }
     }
-    return { message: t('Errors.Server error'), description }
+    return { message: tErrors('Server error'), description }
   }
   return { message: e.message }
 }

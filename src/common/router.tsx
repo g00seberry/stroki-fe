@@ -46,10 +46,12 @@ export const createRouteStd = (
 
 export const createAppRoutes = (appStore: AppStore): RouteObject[] => {
   const isAdmin = () => appStore.isAdmin
-
   const routesWithcond = [
     createWithCond(createRouteStd(PageUrl.Root, <ProfilePage />)),
     createWithCond(createRouteStd(PageUrl.Settings, <SettingsPage />)),
+    /**
+     * Admin routes
+     */
     createWithCond(createRouteStd(PageUrl.Admin, <AdminPage />), isAdmin),
     // Users
     createWithCond(createRouteStd(PageUrl.Users, <UsersPage />), isAdmin),

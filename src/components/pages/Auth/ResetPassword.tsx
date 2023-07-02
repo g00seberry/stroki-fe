@@ -5,20 +5,24 @@ import { observer } from 'mobx-react-lite'
 import { RegistraionFromData } from '../../../types/RegistraionFromData'
 import { FormItemDef, FormStd } from '../../FormStd/FormStd'
 import { formItemStd } from '../../FormStd/formItems/formItemStd'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
-import { equalFields, required } from '../../FormStd/antValidators'
+import {
+  emailValidator,
+  equalFields,
+  required,
+} from '../../FormStd/antValidators'
 import confirm from 'antd/es/modal/confirm'
 import {
   captchaFormItem,
   createCapthaHelpers,
 } from '../../FormStd/formItems/CaptchaFromItem/CaptchaFromItem'
+import { tErrors, tForms, tMessages } from '../../../lang/shortcuts'
+import { t } from 'i18next'
 
 export const ResetPassword: React.FC = observer(() => {
   const { appStore } = useContext(AppContext)
-  const { t } = useTranslation()
   const { ref, resetCaptcha } = createCapthaHelpers()
   const onFailed = () => resetCaptcha(ref)
   const resetPassword = (values: RegistraionFromData) =>
@@ -26,8 +30,10 @@ export const ResetPassword: React.FC = observer(() => {
       if (success) {
         navigate(PageUrl.Root)
         confirm({
-          title: t('Errors.Attention'),
-          content: t('An email with instructions has been sent to your email'),
+          title: tErrors('Attention'),
+          content: tMessages(
+            'An email with instructions has been sent to your email'
+          ),
           cancelText: undefined,
           type: 'info',
         })
@@ -39,21 +45,21 @@ export const ResetPassword: React.FC = observer(() => {
   const formItems: FormItemDef[] = [
     formItemStd(
       'email',
-      t('Forms.Email'),
+      tForms('Email'),
       Input,
       { autoComplete: 'off' },
-      { rules: [required()] }
+      { rules: [required(), emailValidator()] }
     ),
     formItemStd(
       'password',
-      t('Forms.Password'),
+      tForms('Password'),
       Input.Password,
       { autoComplete: 'off' },
       { rules: [required()], hasFeedback: true }
     ),
     formItemStd(
       'passwordConfirm',
-      t('Forms.Confirm password'),
+      tForms('Confirm password'),
       Input.Password,
       { autoComplete: 'off' },
       {
@@ -65,7 +71,7 @@ export const ResetPassword: React.FC = observer(() => {
         dependencies: ['password'],
       }
     ),
-    captchaFormItem('captcha', t('Forms.Captcha'), ref),
+    captchaFormItem('captcha', tForms('Captcha'), ref),
   ]
 
   return (

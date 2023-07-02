@@ -4,10 +4,10 @@ import { ZUser } from '../../types/ZUser'
 import { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
-import { hasRole, hasRolesOR } from '../../common/user'
+import { hasRole, hasRolesOR } from '../../common/hasRole'
 import { hasActionInQuery } from '../../common/hasActionInQuery'
-import { t } from 'i18next'
 import confirm from 'antd/es/modal/confirm'
+import { tErrors, tMessages } from '../../lang/shortcuts'
 
 export class AppStore {
   user = {} as ZUser
@@ -44,8 +44,8 @@ export class AppStore {
       if (getAuthToken() || isResetPassword) await this.refreshAuth()
       if (isResetPassword)
         confirm({
-          title: t('Errors.Attention'),
-          content: t('Password changed successfully'),
+          title: tErrors('Attention'),
+          content: tMessages('Password changed successfully'),
           cancelText: undefined,
           okText: undefined,
           closable: true,

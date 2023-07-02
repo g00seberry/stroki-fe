@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useTranslation } from 'react-i18next'
 import { AdminPageLayout } from '../AdminPageLayout'
 import { TablePageLayout } from '../../../tables/TablePageLayout'
 import { TableFacade } from '../../../tables/TableFacade'
@@ -13,6 +12,8 @@ import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../../common/router'
 import { makeUrl } from '../../../../common/makeUrl'
 import { ZUser } from '../../../../types/ZUser'
+import { tForms, tPagesTitles } from '../../../../lang/shortcuts'
+import { userRoles2Options } from '../../../../common/transforms'
 
 const columns = (): AColumn<ZUser>[] => [
   {
@@ -32,8 +33,8 @@ const columns = (): AColumn<ZUser>[] => [
     key: 'roles',
     title: t('Roles'),
     render: (_, row: ZUser) => {
-      return row.roles.map((role) => (
-        <Tag key={role.id}>{t(`User.Roles.${role.role}`)}</Tag>
+      return userRoles2Options(row.roles).map((role) => (
+        <Tag key={role.value}>{role.label}</Tag>
       ))
     },
   },
@@ -41,7 +42,7 @@ const columns = (): AColumn<ZUser>[] => [
 
 const filterItems = (): FilterFieldsDict<UserFilters> => ({
   email: filterItem(Input, {
-    placeholder: t('Forms.Email'),
+    placeholder: tForms('Email'),
     allowClear: true,
     style: { width: 400 },
     size: 'middle',
@@ -67,9 +68,8 @@ const UsersTable: React.FC = observer(() => {
 })
 
 export const UsersPage: React.FC = observer(() => {
-  const { t } = useTranslation()
   return (
-    <AdminPageLayout pageTitle={t('Pages.Admin.Pages.Users.Title')}>
+    <AdminPageLayout pageTitle={tPagesTitles('Adimin users')}>
       <UsersTable />
     </AdminPageLayout>
   )

@@ -14,16 +14,14 @@ export const App = observer(() => {
   useEffect(() => {
     appStore.init()
   }, [])
-
+  const notActivatedUser = appStore.isLoggedIn && !appStore.isActivated
+  const activatedUser = appStore.isLoggedIn && appStore.isActivated
+  const notAuthUser = !appStore.isLoggedIn
   return (
     <React.StrictMode>
-      {appStore.isLoggedIn && appStore.isActivated && (
-        <RouterProvider router={router} />
-      )}
-      {appStore.isLoggedIn && !appStore.isActivated && (
-        <RouterProvider router={routerNotActivated} />
-      )}
-      {!appStore.isLoggedIn && <RouterProvider router={routerNotAuth} />}
+      {activatedUser && <RouterProvider router={router} />}
+      {notActivatedUser && <RouterProvider router={routerNotActivated} />}
+      {notAuthUser && <RouterProvider router={routerNotAuth} />}
     </React.StrictMode>
   )
 })

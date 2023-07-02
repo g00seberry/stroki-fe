@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx'
 import { DefaultOptionType } from 'antd/es/select'
-import { t } from 'i18next'
 import { notification } from 'antd'
 import { ZUser } from '../../../../../types/ZUser'
 import $api from '../../../../../common/api'
@@ -8,6 +7,7 @@ import { getApiUrl, getApiUrlWithParams } from '../../../../../common/getApiUrl'
 import { onError } from '../../../../../common/getErrorMessage'
 import { makeUrl } from '../../../../../common/makeUrl'
 import { userRoles2Options } from '../../../../../common/transforms'
+import { tMessages } from '../../../../../lang/shortcuts'
 
 export type UserFormData = { rolesIds: number[] }
 
@@ -69,7 +69,7 @@ export class UserFormStore {
       )
       const user = ZUser.parse(res.data)
       this.setUser(user)
-      notification.success({ message: t('User updated successfully') })
+      notification.success({ message: tMessages('User updated successfully') })
     } catch (error) {
       onError(error)
     } finally {

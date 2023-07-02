@@ -36,7 +36,7 @@ export const RoleForm: React.FC<PropsRoleForm> = observer(({ store }) => {
 
   return (
     <Loading store={store}>
-      <FormStd
+      <FormStd<RoleFormData>
         initialValues={store.role}
         formItems={formItems}
         submit={actualHandler}
