@@ -4,7 +4,6 @@ import { MenuItemType } from 'antd/es/menu/hooks/useItems'
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import { TopMenu } from './TopMenu/TopMenu'
 import { AppContext } from '../../AppContext'
 import { createWithCond, filterWithCond } from '../../common/createWithCond'
@@ -12,6 +11,8 @@ import { PageUrl } from '../../common/router'
 import { LangSwitcher } from '../LangSwitcher/LangSwitcher'
 import { UserMenu } from './UserMenu/UserMenu'
 import style from './PageLayout.module.less'
+import { tPagesTitles } from '../../lang/shortcuts'
+import { t } from 'i18next'
 
 type PropsPageLayout = React.PropsWithChildren & {
   pageTitle?: React.ReactNode
@@ -22,7 +23,6 @@ export const PageLayout: React.FC<PropsPageLayout> = ({
   pageTitle,
 }: PropsPageLayout) => {
   const { appStore } = useContext(AppContext)
-  const { t } = useTranslation()
   const navigate = useNavigate()
   const isLoggedIn = () => appStore.isLoggedIn
   const isNotLoggedIn = () => !isLoggedIn()
@@ -31,14 +31,14 @@ export const PageLayout: React.FC<PropsPageLayout> = ({
     createWithCond<MenuItemType>(
       {
         key: 'setting',
-        label: <Link to={PageUrl.Settings}>{t('Pages.Settings.Title')}</Link>,
+        label: <Link to={PageUrl.Settings}>{tPagesTitles('Settings')}</Link>,
       },
       isLoggedIn
     ),
     createWithCond<MenuItemType>(
       {
         key: 'admin',
-        label: <Link to={PageUrl.Admin}>{t('Pages.Admin.Title')}</Link>,
+        label: <Link to={PageUrl.Admin}>{tPagesTitles('Adimin')}</Link>,
       },
       isAdmin
     ),

@@ -1,13 +1,12 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useTranslation } from 'react-i18next'
 import { AdminPageLayout } from '../AdminPageLayout'
 import { UserForm } from './UserForm/UserForm'
 import { useParams } from 'react-router-dom'
 import { userFormStore } from './UserForm/userFormStore'
+import { tPagesTitles } from '../../../../lang/shortcuts'
 
 export const UsersPageSingle: React.FC = observer(() => {
-  const { t } = useTranslation()
   const { id } = useParams()
   React.useEffect(() => {
     if (id) userFormStore.init(id)
@@ -15,7 +14,7 @@ export const UsersPageSingle: React.FC = observer(() => {
 
   return (
     <AdminPageLayout
-      pageTitle={t('Pages.Admin.Pages.User {email}.Title', {
+      pageTitle={tPagesTitles('Adimin users single', {
         email: userFormStore.user?.email,
       })}
     >

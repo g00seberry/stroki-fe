@@ -2,34 +2,27 @@ export default {
   translation: {
     Roles: 'Роли',
     Roles_one: 'Роль',
-    'User updated successfully': 'Пользователь успешно обновлен',
-    'Password changed successfully': 'Пароль успешно изменен',
-    'An email with instructions has been sent to your email':
-      'На вашу почту отправлено письмо с инструкциями',
-    'Reset password': 'Восстановить пароль',
-    'Forgot your password?': 'Забыли пароль?',
-    Back: 'Назад',
-    Logout: 'Выйти',
-    Login: 'Войти',
-    'Sign up': 'Регистрация',
-    // old
-    User: {
-      Roles: {
-        draft: 'Неактивный',
-        user: 'Пользователь',
-        admin: 'Админ',
-        super: 'Супер-админ',
-      },
+    RoleLabels: {
+      draft: 'Неактивный',
+      user: 'Пользователь',
+      admin: 'Админ',
+      super: 'Супер-админ',
+    },
+    Messages: {
+      'User updated successfully': 'Пользователь успешно обновлен',
+      'Password changed successfully': 'Пароль успешно изменен',
+      'An email with instructions has been sent to your email':
+        'На вашу почту отправлено письмо с инструкциями',
+      'Roles removed': 'Роли удалены',
+      'Role updated': 'Роль обновлена',
+      'Role created': 'Роль создана',
     },
     Forms: {
-      'Sign up': 'Регистрация',
       Login: 'Логин',
       Email: 'Email',
       Password: 'Пароль',
       'Confirm password': 'Повторите пароль',
       Captcha: 'Капча',
-      Roles: 'Роли',
-      Roles_one: 'Роль',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',
@@ -47,18 +40,23 @@ export default {
       "Passwords don't match": 'Пароли не совпадают',
       'Wrong code from picture': 'Неправильный код с картинки',
     },
-    Pages: {
-      Settings: { Title: 'Настройки' },
-      Profile: { Title: 'Профиль' },
-      Admin: {
-        Title: 'Администрирование',
-        Pages: {
-          Users: { Title: 'Пользователи' },
-          'User {email}': { Title: 'Пользователь {{email}}' },
-          Roles: { Title: 'Роли' },
-          'Roles {role}': { Title: 'Роль - {{role}}' },
-        },
-      },
+    'Pages titles': {
+      Settings: 'Настройки',
+      Profile: 'Профиль',
+      Adimin: 'Администрирование',
+      'Adimin users': 'Пользователи',
+      'Adimin users single': 'Пользователь: {{email}}',
+      'Adimin roles': 'Роли',
+      'Adimin roles single': 'Роль: {{role}}',
     },
+
+    'Reset password': 'Восстановить пароль',
+    'Forgot your password?': 'Забыли пароль?',
+    Back: 'Назад',
+    Logout: 'Выйти',
+    Login: 'Войти',
+    'Sign up': 'Регистрация',
+    Create: 'Создать',
+    Delete: 'Удалить',
   },
 }

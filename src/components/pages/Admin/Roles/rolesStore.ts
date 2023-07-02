@@ -5,6 +5,7 @@ import { ZRole } from '../../../../types/ZRole'
 import $api from '../../../../common/api'
 import { onError } from '../../../../common/getErrorMessage'
 import { notification } from 'antd'
+import { tMessages } from '../../../../lang/shortcuts'
 
 export class RolesStore {
   tableStore = new TableStore<ZRole, object>({
@@ -20,11 +21,8 @@ export class RolesStore {
       await $api.post(getApiUrl('rolesDelete'), {
         rolesIds: this.tableStore.selected.map((role) => role.id),
       })
-      /**
-       * TODO
-       * -локализация
-       */
-      notification.info({ message: 'Роли удалены' })
+
+      notification.info({ message: tMessages('Roles removed') })
     } catch (error) {
       onError(error)
     } finally {

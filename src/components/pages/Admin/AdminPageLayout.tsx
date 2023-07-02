@@ -1,6 +1,5 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { useTranslation } from 'react-i18next'
 import { Layout, Menu } from 'antd'
 import Sider from 'antd/es/layout/Sider'
 import { Content } from 'antd/es/layout/layout'
@@ -10,6 +9,7 @@ import { createWithCond, filterWithCond } from '../../../common/createWithCond'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
 import style from './AdminPageLayout.module.less'
+import { tPagesTitles } from '../../../lang/shortcuts'
 
 type PropsAdminPageLayout = React.PropsWithChildren & {
   pageTitle?: React.ReactNode
@@ -17,19 +17,14 @@ type PropsAdminPageLayout = React.PropsWithChildren & {
 
 export const AdminPageLayout: React.FC<PropsAdminPageLayout> = observer(
   ({ children, pageTitle }: PropsAdminPageLayout) => {
-    const { t } = useTranslation()
     const menuItems = [
       createWithCond<MenuItemType>({
         key: 'users',
-        label: (
-          <Link to={PageUrl.Users}>{t('Pages.Admin.Pages.Users.Title')}</Link>
-        ),
+        label: <Link to={PageUrl.Users}>{tPagesTitles('Adimin users')}</Link>,
       }),
       createWithCond<MenuItemType>({
         key: 'roles',
-        label: (
-          <Link to={PageUrl.Roles}>{t('Pages.Admin.Pages.Roles.Title')}</Link>
-        ),
+        label: <Link to={PageUrl.Roles}>{tPagesTitles('Adimin roles')}</Link>,
       }),
     ]
 

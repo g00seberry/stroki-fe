@@ -5,6 +5,7 @@ import { getApiUrl, getApiUrlWithParams } from '../../../../../common/getApiUrl'
 import { onError } from '../../../../../common/getErrorMessage'
 import { ZRole } from '../../../../../types/ZRole'
 import { notification } from 'antd'
+import { tMessages } from '../../../../../lang/shortcuts'
 
 export type RoleFormData = { role: UserRole }
 
@@ -53,11 +54,7 @@ export class RoleFormStore {
       )
       const role = ZRole.parse(roleResp.data)
       this.setRole(role)
-      /**
-       * TODO
-       * -локализация
-       */
-      notification.success({ message: 'Роль обновлена' })
+      notification.success({ message: tMessages('Role updated') })
     } catch (error) {
       onError(error)
     } finally {
@@ -71,11 +68,7 @@ export class RoleFormStore {
       const roleResp = await $api.post(getApiUrl('roleNew'), values)
       const role = ZRole.parse(roleResp.data)
       this.setRole(role)
-      /**
-       * TODO
-       * -локализация
-       */
-      notification.success({ message: 'Роль создана' })
+      notification.success({ message: tMessages('Role created') })
       return role
     } catch (error) {
       onError(error)

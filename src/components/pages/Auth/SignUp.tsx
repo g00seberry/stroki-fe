@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite'
 import { RegistraionFromData } from '../../../types/RegistraionFromData'
 import { FormItemDef, FormStd } from '../../FormStd/FormStd'
 import { formItemStd } from '../../FormStd/formItems/formItemStd'
-import { useTranslation } from 'react-i18next'
 import {
   captchaFormItem,
   createCapthaHelpers,
@@ -13,11 +12,16 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
-import { equalFields, required } from '../../FormStd/antValidators'
+import {
+  emailValidator,
+  equalFields,
+  required,
+} from '../../FormStd/antValidators'
+import { tForms } from '../../../lang/shortcuts'
+import { t } from 'i18next'
 
 export const SignUp: React.FC = observer(() => {
   const { appStore } = useContext(AppContext)
-  const { t } = useTranslation()
   const navigate = useNavigate()
   const signUp = (values: RegistraionFromData) =>
     appStore
@@ -27,17 +31,23 @@ export const SignUp: React.FC = observer(() => {
   const { ref, resetCaptcha } = createCapthaHelpers()
   const onFailed = () => resetCaptcha(ref)
   const formItems: FormItemDef[] = [
-    formItemStd('email', t('Forms.Email'), Input, {}, { rules: [required()] }),
+    formItemStd(
+      'email',
+      tForms('Email'),
+      Input,
+      {},
+      { rules: [required(), emailValidator()] }
+    ),
     formItemStd(
       'password',
-      t('Forms.Password'),
+      tForms('Password'),
       Input.Password,
       { autoComplete: 'off' },
       { rules: [required()], hasFeedback: true }
     ),
     formItemStd(
       'passwordConfirm',
-      t('Forms.Confirm password'),
+      tForms('Confirm password'),
       Input.Password,
       { autoComplete: 'off' },
       {
@@ -49,7 +59,7 @@ export const SignUp: React.FC = observer(() => {
         dependencies: ['password'],
       }
     ),
-    captchaFormItem('captcha', t('Forms.Captcha'), ref),
+    captchaFormItem('captcha', tForms('Captcha'), ref),
   ]
 
   return (
