@@ -18,6 +18,14 @@ export class AuthService {
     return res.data
   }
 
+  static async resetPassword(email: string, password: string) {
+    const res = await axios.post(getApiUrl('resetPassword'), {
+      email,
+      password,
+    })
+    return res.data
+  }
+
   static async refreshAuth(): Promise<AuthResponse> {
     const res = await axios.get(getApiUrl('refresh'))
     return res.data

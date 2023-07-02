@@ -6,28 +6,44 @@ import { RegistraionFromData } from '../../../types/RegistraionFromData'
 import { FormItemDef, FormStd } from '../../FormStd/FormStd'
 import { formItemStd } from '../../FormStd/formItems/formItemStd'
 import { useTranslation } from 'react-i18next'
-import {
-  captchaFormItem,
-  createCapthaHelpers,
-} from '../../FormStd/formItems/CaptchaFromItem/CaptchaFromItem'
 import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../common/router'
 import { PageLayout } from '../../Layout/PageLayout'
 import { equalFields, required } from '../../FormStd/antValidators'
+import confirm from 'antd/es/modal/confirm'
+import {
+  captchaFormItem,
+  createCapthaHelpers,
+} from '../../FormStd/formItems/CaptchaFromItem/CaptchaFromItem'
 
-export const SignUp: React.FC = observer(() => {
+export const ResetPassword: React.FC = observer(() => {
   const { appStore } = useContext(AppContext)
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const signUp = (values: RegistraionFromData) =>
-    appStore
-      .signUp(values)
-      .then((success) => success && navigate(PageUrl.Login))
-  const toPrevPage = () => navigate(-1)
   const { ref, resetCaptcha } = createCapthaHelpers()
   const onFailed = () => resetCaptcha(ref)
+  const resetPassword = (values: RegistraionFromData) =>
+    appStore.resetPassword(values).then((success) => {
+      if (success) {
+        navigate(PageUrl.Root)
+        confirm({
+          title: t('Errors.Attention'),
+          content: t('An email with instructions has been sent to your email'),
+          cancelText: undefined,
+          type: 'info',
+        })
+      }
+    })
+
+  const navigate = useNavigate()
+  const toPrevPage = () => navigate(-1)
   const formItems: FormItemDef[] = [
-    formItemStd('email', t('Forms.Email'), Input, {}, { rules: [required()] }),
+    formItemStd(
+      'email',
+      t('Forms.Email'),
+      Input,
+      { autoComplete: 'off' },
+      { rules: [required()] }
+    ),
     formItemStd(
       'password',
       t('Forms.Password'),
@@ -56,9 +72,9 @@ export const SignUp: React.FC = observer(() => {
     <PageLayout>
       <FormStd
         formItems={formItems}
-        submit={signUp}
+        submit={resetPassword}
         onFinishFailed={onFailed}
-        submitText={t('Sign up') || ''}
+        submitText={t('Reset password') || ''}
         cancelText={t('Back') || ''}
         cancel={toPrevPage}
       />

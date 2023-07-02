@@ -1,4 +1,5 @@
 import { Rule } from 'antd/es/form'
+import { FormInstance } from 'rc-field-form/lib/interface'
 import { t } from 'i18next'
 
 export const emailValidator = () => ({
@@ -23,4 +24,18 @@ export const digitsCount = (count: number, field: string): Rule => ({
 export const onlyNumbers = (): Rule => ({
   pattern: /^\d*$/,
   message: t('Validation.Only numbers') || '',
+})
+
+export const equalFields = (
+  { getFieldValue }: FormInstance,
+  fieldName: string
+) => ({
+  validator(_: unknown, value: string) {
+    if (!value || getFieldValue(fieldName) === value) {
+      return Promise.resolve()
+    }
+    return Promise.reject(
+      new Error(t("Validation.Passwords don't match") || '')
+    )
+  },
 })

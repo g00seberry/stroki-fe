@@ -12,7 +12,6 @@ export default {
       'Sign up': 'Sign up',
       Login: 'Login',
       Email: 'Email',
-      Enter: 'Enter',
       Password: 'Password',
       Captcha: 'Captcha',
       Roles: 'Roles',
@@ -21,7 +20,7 @@ export default {
       Cancel: 'Cancel',
     },
     Errors: {
-      Warning: 'Warning',
+      Attention: 'Attention',
       Forbidden: 'Forbidden',
       'Server error': 'Server error',
     },
