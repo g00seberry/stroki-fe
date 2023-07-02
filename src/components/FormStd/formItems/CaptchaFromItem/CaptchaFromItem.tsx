@@ -15,7 +15,7 @@ export type CaptchaRefObject = React.RefObject<CaptchaRefType>
 
 export const createCapthaHelpers = () => ({
   ref: React.useRef<CaptchaRefType>(null),
-  reset: (captchaRef: CaptchaRefObject) =>
+  resetCaptcha: (captchaRef: CaptchaRefObject) =>
     captchaRef.current?.initializeCaptcha(),
 })
 

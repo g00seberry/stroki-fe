@@ -23,7 +23,7 @@ export const getErrorMessage = (e: Error): ArgsProps => {
         description
     }
     if (axiosError?.response?.status === 400) {
-      return { message: t('Errors.Warning'), description, type: 'warning' }
+      return { message: t('Errors.Attention'), description, type: 'warning' }
     }
     if (axiosError?.response?.status === 403) {
       return { message: t('Errors.Forbidden') }

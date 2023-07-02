@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
 import { NoMatch } from '../components/pages/NoMatch/NoMatch'
-import { createWithCond, filterWithCond } from './WithCond'
+import { createWithCond, filterWithCond } from './createWithCond'
 import { ProfilePage } from '../components/pages/ProfilePage/ProfilePage'
 import { SettingsPage } from '../components/pages/SettingsPage/SettingsPage'
 import { AdminPage } from '../components/pages/Admin/AdminPage/AdminPage'
@@ -14,12 +14,14 @@ import { UsersPage } from '../components/pages/Admin/Users/UsersPage'
 import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle'
 import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
 import { RolesPageSingle } from '../components/pages/Admin/Roles/RolesPageSingle'
+import { ResetPassword } from '../components/pages/Auth/ResetPassword'
 
 export enum PageUrl {
   Root = '/',
   // auth
   Login = '/login',
   SignUp = '/sign-up',
+  ResetPassword = '/reset-password',
   // internal
   Profile = '/profile',
   Settings = '/settings',
@@ -82,4 +84,5 @@ export const routerNotAuth = createBrowserRouter([
   createRouteStd(PageUrl.Root, <Home />),
   createRouteStd(PageUrl.Login, <Login />),
   createRouteStd(PageUrl.SignUp, <SignUp />),
+  createRouteStd(PageUrl.ResetPassword, <ResetPassword />),
 ])

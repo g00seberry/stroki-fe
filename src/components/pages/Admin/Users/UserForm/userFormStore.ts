@@ -7,17 +7,12 @@ import $api from '../../../../../common/api'
 import { getApiUrl, getApiUrlWithParams } from '../../../../../common/getApiUrl'
 import { onError } from '../../../../../common/getErrorMessage'
 import { makeUrl } from '../../../../../common/makeUrl'
-import { AuthResponse } from '../../../../../types/AuthResponse'
-import { ZRole } from '../../../../../types/ZRole'
+import { userRoles2Options } from '../../../../../common/transforms'
 
-const userRoles2Options = (roles: ZRole[]): DefaultOptionType[] =>
-  roles.map((role) => ({ label: t(`User.Roles.${role.role}`), value: role.id }))
-
-export type UserFormData = { rolesIds: number[]; email: string }
+export type UserFormData = { rolesIds: number[] }
 
 const zUser2FormData = (user: ZUser): UserFormData => ({
   rolesIds: user.roles.map((role) => role.id),
-  email: user.email,
 })
 
 export class UserFormStore {
@@ -26,8 +21,8 @@ export class UserFormStore {
     this.userId = userId
   }
 
-  user: UserFormData | undefined = undefined
-  setUser(newUser: UserFormData) {
+  user: ZUser | undefined = undefined
+  setUser(newUser: ZUser) {
     this.user = newUser
   }
 
@@ -41,6 +36,10 @@ export class UserFormStore {
     this.loading = loading
   }
 
+  get initialFormData() {
+    return this.user ? zUser2FormData(this.user) : undefined
+  }
+
   constructor() {
     makeAutoObservable(this)
   }
@@ -51,7 +50,7 @@ export class UserFormStore {
       this.setUserId(Number(id))
       const userResp = await $api.get(getApiUrlWithParams('getUser', { id }))
       const user = ZUser.parse(userResp.data)
-      this.setUser(zUser2FormData(user))
+      this.setUser(user)
       const rolesResp = await $api.get(getApiUrl('roles'))
       this.setRolesOptions(userRoles2Options(rolesResp.data))
     } catch (error) {
@@ -69,39 +68,10 @@ export class UserFormStore {
         values
       )
       const user = ZUser.parse(res.data)
-      this.setUser(zUser2FormData(user))
-      /**
-       * TODO
-       * -локализация
-       */
-      notification.success({ message: 'Пользователь успешно обновлен' })
+      this.setUser(user)
+      notification.success({ message: t('User updated successfully') })
     } catch (error) {
       onError(error)
-    } finally {
-      this.setLoading(false)
-    }
-  }
-
-  async changeEmail({ email }: UserFormData) {
-    this.setLoading(true)
-    try {
-      const res = await $api.put<AuthResponse>(
-        getApiUrlWithParams('changeMail', { id: this.userId }),
-        { email }
-      )
-      const user = ZUser.parse(res.data.user)
-      this.setUser(zUser2FormData(user))
-      /**
-       * TODO
-       * -локализация
-       */
-      notification.success({
-        message: `Письмо с подтверждением отправлено на почту ${email}`,
-      })
-      return true
-    } catch (error) {
-      onError(error)
-      return false
     } finally {
       this.setLoading(false)
     }

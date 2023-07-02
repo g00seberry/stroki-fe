@@ -2,6 +2,16 @@ export default {
   translation: {
     Roles: 'Роли',
     Roles_one: 'Роль',
+    'User updated successfully': 'Пользователь успешно обновлен',
+    'Password changed successfully': 'Пароль успешно изменен',
+    'An email with instructions has been sent to your email':
+      'На вашу почту отправлено письмо с инструкциями',
+    'Reset password': 'Восстановить пароль',
+    'Forgot your password?': 'Забыли пароль?',
+    Back: 'Назад',
+    Logout: 'Выйти',
+    Login: 'Войти',
+    'Sign up': 'Регистрация',
     // old
     User: {
       Roles: {
@@ -15,8 +25,8 @@ export default {
       'Sign up': 'Регистрация',
       Login: 'Логин',
       Email: 'Email',
-      Enter: 'Войти',
       Password: 'Пароль',
+      'Confirm password': 'Повторите пароль',
       Captcha: 'Капча',
       Roles: 'Роли',
       Roles_one: 'Роль',
@@ -25,7 +35,7 @@ export default {
       Cancel: 'Отмена',
     },
     Errors: {
-      Warning: 'Внимание',
+      Attention: 'Внимание',
       Forbidden: 'Доступ запрещен',
       'Server error': 'Ошибка сервера',
     },
@@ -50,9 +60,5 @@ export default {
         },
       },
     },
-    Back: 'Назад',
-    Logout: 'Выйти',
-    Login: 'Войти',
-    'Sign up': 'Регистрация',
   },
 }
