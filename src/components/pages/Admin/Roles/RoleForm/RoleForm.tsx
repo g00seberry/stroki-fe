@@ -4,7 +4,6 @@ import { t } from 'i18next'
 import { formItemStd } from '../../../../FormStd/formItems/formItemStd'
 import { FormItemDef, FormStd } from '../../../../FormStd/FormStd'
 import { Input } from 'antd'
-import { Loading } from '../../../../Loading/Loading'
 import { required } from '../../../../FormStd/antValidators'
 import { RoleFormData, RoleFormStore } from './roleFormStore'
 import { useNavigate } from 'react-router-dom'
@@ -35,12 +34,12 @@ export const RoleForm: React.FC<PropsRoleForm> = observer(({ store }) => {
   const actualHandler = store.isNew ? createRole : updateRole
 
   return (
-    <Loading store={store}>
-      <FormStd<RoleFormData>
-        initialValues={store.role}
-        formItems={formItems}
-        submit={actualHandler}
-      />
-    </Loading>
+    <FormStd<RoleFormData>
+      loading={store.loading}
+      pending={store.saving}
+      initialValues={store.role}
+      formItems={formItems}
+      submit={actualHandler}
+    />
   )
 })

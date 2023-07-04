@@ -5,7 +5,6 @@ import { t } from 'i18next'
 import { formItemStd } from '../../../../FormStd/formItems/formItemStd'
 import { FormItemDef, FormStd } from '../../../../FormStd/FormStd'
 import { Select } from 'antd'
-import { Loading } from '../../../../Loading/Loading'
 import { required } from '../../../../FormStd/antValidators'
 
 type PropsUsersForm = {
@@ -29,12 +28,12 @@ export const UserForm: React.FC<PropsUsersForm> = observer(({ store }) => {
   const updateUser = (values: UserFormData) => store.updateUser(values)
 
   return (
-    <Loading store={store}>
-      <FormStd<UserFormData>
-        initialValues={store.initialFormData}
-        formItems={formItems}
-        submit={updateUser}
-      />
-    </Loading>
+    <FormStd<UserFormData>
+      loading={store.loading}
+      pending={store.saving}
+      initialValues={store.initialFormData}
+      formItems={formItems}
+      submit={updateUser}
+    />
   )
 })

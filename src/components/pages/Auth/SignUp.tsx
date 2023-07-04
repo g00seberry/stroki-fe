@@ -66,6 +66,7 @@ export const SignUp: React.FC = observer(() => {
     <PageLayout>
       <FormStd
         formItems={formItems}
+        pending={appStore.pending}
         submit={signUp}
         onFinishFailed={onFailed}
         submitText={t('Sign up') || ''}

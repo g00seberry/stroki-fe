@@ -16,8 +16,8 @@ const zUser2FormData = (user: ZUser): UserFormData => ({
 })
 
 export class UserFormStore {
-  userId: number | undefined
-  setUserId(userId: number) {
+  userId: string | undefined = undefined
+  setUserId(userId: string) {
     this.userId = userId
   }
 
@@ -36,6 +36,11 @@ export class UserFormStore {
     this.loading = loading
   }
 
+  saving = false
+  setSaving(saving: boolean) {
+    this.saving = saving
+  }
+
   get initialFormData() {
     return this.user ? zUser2FormData(this.user) : undefined
   }
@@ -47,7 +52,7 @@ export class UserFormStore {
   async init(id: string) {
     this.setLoading(true)
     try {
-      this.setUserId(Number(id))
+      this.setUserId(id)
       const userResp = await $api.get(getApiUrlWithParams('getUser', { id }))
       const user = ZUser.parse(userResp.data)
       this.setUser(user)
@@ -61,7 +66,7 @@ export class UserFormStore {
   }
 
   async updateUser(values: UserFormData) {
-    this.setLoading(true)
+    this.setSaving(true)
     try {
       const res = await $api.put(
         makeUrl(getApiUrl('updateUser'), { id: this.userId }),
@@ -73,7 +78,7 @@ export class UserFormStore {
     } catch (error) {
       onError(error)
     } finally {
-      this.setLoading(false)
+      this.setSaving(false)
     }
   }
 }
