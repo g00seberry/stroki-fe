@@ -78,6 +78,7 @@ export const ResetPassword: React.FC = observer(() => {
     <PageLayout>
       <FormStd
         formItems={formItems}
+        pending={appStore.pending}
         submit={resetPassword}
         onFinishFailed={onFailed}
         submitText={t('Reset password') || ''}

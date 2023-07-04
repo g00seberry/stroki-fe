@@ -3,18 +3,14 @@ import React from 'react'
 import style from './Loading.module.less'
 import { observer } from 'mobx-react-lite'
 
-interface StoreWithLoding {
-  loading: boolean
-}
-
 type PropsLoading = {
-  store: StoreWithLoding
+  loading: boolean
 } & React.PropsWithChildren
 
 export const Loading: React.FC<PropsLoading> = observer(
-  ({ children, store }: PropsLoading) => (
+  ({ children, loading }: PropsLoading) => (
     <>
-      {store.loading ? (
+      {loading ? (
         <div className={style.container}>
           <Spin />
         </div>

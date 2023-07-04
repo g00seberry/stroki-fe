@@ -24,7 +24,4 @@ export const tValidation = (
 export const tPagesTitles = (
   key: keyof (typeof keys.translation)['Pages titles'],
   opt: TOptions = {}
-) => {
-  console.log(t(`Pages titles.${key}`))
-  return t(`Pages titles.${key}`, opt)
-}
+) => t(`Pages titles.${key}`, opt)

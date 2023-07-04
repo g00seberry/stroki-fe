@@ -41,6 +41,7 @@ export const Login: React.FC = observer(() => {
     <PageLayout>
       <FormStd
         formItems={formItems}
+        pending={appStore.pending}
         submit={login}
         submitText={t('Login') || ''}
         cancelText={t('Back') || ''}

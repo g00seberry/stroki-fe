@@ -27,9 +27,9 @@ export class AppStore {
     return hasRolesOR(this.user, ['admin', 'super'])
   }
 
-  loading = false
-  setLoading(loading: boolean) {
-    this.loading = loading
+  pending = false
+  setPending(pending: boolean) {
+    this.pending = pending
   }
 
   constructor() {
@@ -57,6 +57,7 @@ export class AppStore {
   }
 
   async signUp({ email, password }: RegistraionFromData) {
+    this.setPending(true)
     try {
       const authData = await AuthService.signUp(email, password)
       const user = ZUser.parse(authData.user)
@@ -66,10 +67,13 @@ export class AppStore {
     } catch (error) {
       onError(error)
       return false
+    } finally {
+      this.setPending(false)
     }
   }
 
   async login({ email, password }: RegistraionFromData) {
+    this.setPending(true)
     try {
       const authData = await AuthService.login(email, password)
       const user = ZUser.parse(authData.user)
@@ -79,30 +83,39 @@ export class AppStore {
     } catch (error) {
       onError(error)
       return false
+    } finally {
+      this.setPending(false)
     }
   }
 
   async resetPassword({ email, password }: RegistraionFromData) {
+    this.setPending(true)
     try {
       await AuthService.resetPassword(email, password)
       return true
     } catch (error) {
       onError(error)
       return false
+    } finally {
+      this.setPending(false)
     }
   }
 
   async logout() {
+    this.setPending(true)
     try {
       await AuthService.logout()
       this.setUser({} as ZUser)
       setAuthToken()
     } catch (error) {
       onError(error)
+    } finally {
+      this.setPending(false)
     }
   }
 
   async refreshAuth() {
+    this.setPending(true)
     try {
       const authData = await AuthService.refreshAuth()
       const user = ZUser.parse(authData.user)
@@ -111,6 +124,8 @@ export class AppStore {
       return authData
     } catch (error) {
       onError(error)
+    } finally {
+      this.setPending(false)
     }
   }
 }
