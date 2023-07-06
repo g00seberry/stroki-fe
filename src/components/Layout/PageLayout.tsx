@@ -8,7 +8,6 @@ import { TopMenu } from './TopMenu/TopMenu'
 import { AppContext } from '../../AppContext'
 import { createWithCond, filterWithCond } from '../../common/createWithCond'
 import { PageUrl } from '../../common/router'
-import { LangSwitcher } from '../LangSwitcher/LangSwitcher'
 import { UserMenu } from './UserMenu/UserMenu'
 import style from './PageLayout.module.less'
 import { tPagesTitles } from '../../lang/shortcuts'
@@ -67,10 +66,6 @@ export const PageLayout: React.FC<PropsPageLayout> = ({
       },
       isNotLoggedIn
     ),
-    createWithCond<MenuItemType>({
-      key: 'lang',
-      label: <LangSwitcher />,
-    }),
   ]
 
   return (
