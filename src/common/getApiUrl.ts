@@ -7,12 +7,12 @@ export const apiUrls = {
   login: '/auth/login',
   logout: '/auth/logout',
   refresh: '/auth/refresh',
-  resetPassword: '/auth/reset-password',
+  resetPassword: '/auth/password/reset',
+  resetActivationLink: '/auth/activate/reset',
   // users
   usersSearch: '/users/search',
   getUser: '/users/user/:id',
   updateUser: '/users/user/:id',
-  changeMail: '/users/user/:id/mail/change',
   //roles
   roles: '/roles',
   role: '/roles/role/:id',
@@ -21,8 +21,7 @@ export const apiUrls = {
   rolesDelete: '/roles/delete',
 }
 
-export const getApiUrl = (url: keyof typeof apiUrls) =>
-  `/api${apiUrls[url as keyof typeof apiUrls]}`
+export const getApiUrl = (url: keyof typeof apiUrls) => `/api${apiUrls[url]}`
 
 export const getApiUrlWithQuery = (
   url: keyof typeof apiUrls,

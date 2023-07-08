@@ -10,6 +10,8 @@ export default {
     },
     Messages: {
       'User updated successfully': 'Пользователь успешно обновлен',
+      'User activated successfully': 'Пользователь успешно активирован',
+      'User is not activated': 'Пользователь не активирован',
       'Password changed successfully': 'Пароль успешно изменен',
       'An email with instructions has been sent to your email':
         'На вашу почту отправлено письмо с инструкциями',
@@ -58,5 +60,6 @@ export default {
     'Sign up': 'Регистрация',
     Create: 'Создать',
     Delete: 'Удалить',
+    Resend: 'Повторить отправку',
   },
 }
