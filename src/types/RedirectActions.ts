@@ -11,6 +11,6 @@
  * 5) при инициализации приложение проверяет данный парамер и в зависимости от его наличия
  *    происходят разлиные действия
  */
-export type RedirectActionTypes = 'resetPassword'
+export type RedirectActionTypes = 'resetPassword' | 'activateUser'
 export type RedirectParam = 'action'
 export type RedirectParamConfig = Record<RedirectParam, RedirectActionTypes>

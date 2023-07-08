@@ -37,6 +37,8 @@ export const ResetPassword: React.FC = observer(() => {
           cancelText: undefined,
           type: 'info',
         })
+      } else {
+        onFailed()
       }
     })
 

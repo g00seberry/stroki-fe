@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom'
+import { RouteObject, createBrowserRouter } from 'react-router-dom'
 import { NoMatch } from '../components/pages/NoMatch/NoMatch'
 import { createWithCond, filterWithCond } from './createWithCond'
 import { ProfilePage } from '../components/pages/ProfilePage/ProfilePage'
@@ -9,7 +9,6 @@ import { AppStore } from '../components/App/appStore'
 import { Home } from '../components/pages/Home/Home'
 import { Login } from '../components/pages/Auth/Login'
 import { SignUp } from '../components/pages/Auth/SignUp'
-import { UserIsNotActivated } from '../components/pages/UserIsNotActivated/UserIsNotActivated'
 import { UsersPage } from '../components/pages/Admin/Users/UsersPage'
 import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle'
 import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
@@ -21,7 +20,7 @@ export enum PageUrl {
   // auth
   Login = '/login',
   SignUp = '/sign-up',
-  ResetPassword = '/reset-password',
+  ResetPassword = '/password/reset',
   // internal
   Profile = '/profile',
   Settings = '/settings',
@@ -73,14 +72,6 @@ export const createAppRoutes = (appStore: AppStore): RouteObject[] => {
 
   return filterWithCond(routesWithcond)
 }
-
-export const routerNotActivated = createBrowserRouter([
-  createRouteStd(
-    PageUrl.Root,
-    <UserIsNotActivated />,
-    <Navigate to={PageUrl.Root} />
-  ),
-])
 
 export const routerNotAuth = createBrowserRouter([
   createRouteStd(PageUrl.Root, <Home />),

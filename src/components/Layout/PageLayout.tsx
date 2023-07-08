@@ -12,6 +12,7 @@ import { UserMenu } from './UserMenu/UserMenu'
 import style from './PageLayout.module.less'
 import { tPagesTitles } from '../../lang/shortcuts'
 import { t } from 'i18next'
+import { UserIsNotActivated } from '../pages/UserIsNotActivated/UserIsNotActivated'
 
 type PropsPageLayout = React.PropsWithChildren & {
   pageTitle?: React.ReactNode
@@ -82,6 +83,7 @@ export const PageLayout: React.FC<PropsPageLayout> = ({
           )}
         </Row>
       </Header>
+      <UserIsNotActivated />
       <Content className={style.content}>
         {pageTitle && <div>{pageTitle}</div>}
         {children ? children : <Outlet />}

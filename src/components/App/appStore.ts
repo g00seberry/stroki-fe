@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
 import { ZUser } from '../../types/ZUser'
-import { getAuthToken, setAuthToken } from '../../common/api'
+import $api, { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
 import { hasRole, hasRolesOR } from '../../common/hasRole'
-import { hasActionInQuery } from '../../common/hasActionInQuery'
 import confirm from 'antd/es/modal/confirm'
 import { tErrors, tMessages } from '../../lang/shortcuts'
+import { getApiUrl } from '../../common/getApiUrl'
 
 export class AppStore {
   user = {} as ZUser
@@ -38,19 +38,7 @@ export class AppStore {
 
   async init() {
     try {
-      const searchParams = new URLSearchParams(document.location.search)
-      // если это перенаправление после восстановления пароля
-      const isResetPassword = hasActionInQuery('resetPassword', searchParams)
-      if (getAuthToken() || isResetPassword) await this.refreshAuth()
-      if (isResetPassword)
-        confirm({
-          title: tErrors('Attention'),
-          content: tMessages('Password changed successfully'),
-          cancelText: undefined,
-          okText: undefined,
-          closable: true,
-          type: 'success',
-        })
+      if (getAuthToken()) await this.refreshAuth()
     } catch (error) {
       onError(error)
     }
@@ -101,10 +89,33 @@ export class AppStore {
     }
   }
 
+  async resetActivationLink() {
+    this.setPending(true)
+    try {
+      await $api.get(getApiUrl('resetActivationLink'))
+      confirm({
+        title: tErrors('Attention'),
+        content: tMessages(
+          'An email with instructions has been sent to your email'
+        ),
+        cancelText: undefined,
+        okText: undefined,
+        closable: true,
+        type: 'warning',
+      })
+      return true
+    } catch (error) {
+      onError(error)
+      return false
+    } finally {
+      this.setPending(false)
+    }
+  }
+
   async logout() {
     this.setPending(true)
     try {
-      await AuthService.logout()
+      AuthService.logout()
       this.setUser({} as ZUser)
       setAuthToken()
     } catch (error) {
