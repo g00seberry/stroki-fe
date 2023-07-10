@@ -26,6 +26,14 @@ export const AdminPageLayout: React.FC<PropsAdminPageLayout> = observer(
         key: 'roles',
         label: <Link to={PageUrl.Roles}>{tPagesTitles('Adimin roles')}</Link>,
       }),
+      createWithCond<MenuItemType>({
+        key: 'taxonomies',
+        label: (
+          <Link to={PageUrl.Taxonomies}>
+            {tPagesTitles('Adimin taxonomies')}
+          </Link>
+        ),
+      }),
     ]
 
     return (

@@ -1,13 +1,15 @@
 import React, { useContext, useEffect } from 'react'
 import { AppContext } from '../../AppContext'
 import { observer } from 'mobx-react-lite'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { createAppRoutes, routerNotAuth } from '../../common/router'
+import { Route, Routes } from 'react-router-dom'
+import { appRoutes } from '../../common/router'
 import { onQueryAction } from './onQueryAction'
+import { NoMatch } from '../pages/NoMatch/NoMatch'
 
 export const App = observer(() => {
   const { appStore } = useContext(AppContext)
-  const router = createBrowserRouter(createAppRoutes(appStore))
+  const routes = appRoutes(appStore)
+
   useEffect(() => {
     appStore.init()
     /**
@@ -17,11 +19,12 @@ export const App = observer(() => {
   }, [])
   return (
     <React.StrictMode>
-      {appStore.isLoggedIn ? (
-        <RouterProvider router={router} />
-      ) : (
-        <RouterProvider router={routerNotAuth} />
-      )}
+      <Routes>
+        {routes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
     </React.StrictMode>
   )
 })

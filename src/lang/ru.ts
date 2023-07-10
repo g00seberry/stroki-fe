@@ -50,6 +50,8 @@ export default {
       'Adimin users single': 'Пользователь: {{email}}',
       'Adimin roles': 'Роли',
       'Adimin roles single': 'Роль: {{role}}',
+      'Adimin taxonomies': 'Таксономии',
+      'Adimin taxonomies single': 'Таксономия: {{type}}',
     },
 
     'Reset password': 'Восстановить пароль',
