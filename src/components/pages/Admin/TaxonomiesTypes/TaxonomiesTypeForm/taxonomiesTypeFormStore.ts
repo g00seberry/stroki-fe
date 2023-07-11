@@ -13,8 +13,8 @@ export type TaxonomyTypeFormData = { name: string }
 
 export class TaxonomiesTypeFormStore {
   typeId: string | undefined = undefined
-  setTypeId(roleId: string | undefined) {
-    this.typeId = roleId
+  setTypeId(id: string | undefined) {
+    this.typeId = id
   }
 
   type: ZTaxonomyType | undefined = undefined

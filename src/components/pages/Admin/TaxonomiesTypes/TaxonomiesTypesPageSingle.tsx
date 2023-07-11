@@ -11,7 +11,7 @@ export const TaxonomiesTypesPageSingle: React.FC = observer(() => {
   React.useEffect(() => {
     if (id) taxonomiesTypeFormStore.init(id)
     return () => taxonomiesTypeFormStore.destroy()
-  }, [])
+  }, [id])
 
   return (
     <AdminPageLayout

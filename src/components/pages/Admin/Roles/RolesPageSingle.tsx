@@ -12,7 +12,7 @@ export const RolesPageSingle: React.FC = observer(() => {
   React.useEffect(() => {
     if (id) roleFormStore.init(id)
     return () => roleFormStore.destroy()
-  }, [])
+  }, [id])
   return (
     <AdminPageLayout
       pageTitle={tPagesTitles('Adimin roles single', {
