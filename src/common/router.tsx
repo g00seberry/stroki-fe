@@ -14,8 +14,9 @@ import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle
 import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
 import { RolesPageSingle } from '../components/pages/Admin/Roles/RolesPageSingle'
 import { ResetPassword } from '../components/pages/Auth/ResetPassword'
-import { TaxonomiesPage } from '../components/pages/Admin/Taxonomies/TaxonomiesPage'
+import { TaxonomiesTypesPage } from '../components/pages/Admin/TaxonomiesTypes/TaxonomiesTypesPage'
 import { IsAdmin, IsLoggedIn, NotLoggedIn } from '../components/Condition'
+import { TaxonomiesTypesPageSingle } from '../components/pages/Admin/TaxonomiesTypes/TaxonomiesTypesPageSingle'
 
 export enum PageUrl {
   Root = '/',
@@ -33,8 +34,9 @@ export enum PageUrl {
   Roles = '/admin/roles',
   RolesSingle = '/admin/roles/:id',
   RolesSingleNew = '/admin/roles/new',
-  Taxonomies = '/admin/taxonomies',
-  TaxonomiesSingle = '/admin/taxonomies/:id',
+  TaxonomiesTypes = '/admin/taxonomies/types',
+  TaxonomiesTypesSingle = '/admin/taxonomies/types/:id',
+  TaxonomiesTypesNew = '/admin/taxonomies/types/new',
 }
 
 export const createRouteStd = (
@@ -156,11 +158,30 @@ export const appRoutes = (appStore: AppStore) => {
       ),
       isAdmin
     ),
+    // таксономии
     createWithCond(
       createRouteStd(
-        PageUrl.Taxonomies,
+        PageUrl.TaxonomiesTypes,
         <IsAdmin>
-          <TaxonomiesPage />
+          <TaxonomiesTypesPage />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.TaxonomiesTypesSingle,
+        <IsAdmin>
+          <TaxonomiesTypesPageSingle />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.TaxonomiesTypesNew,
+        <IsAdmin>
+          <TaxonomiesTypesPageSingle />
         </IsAdmin>
       ),
       isAdmin

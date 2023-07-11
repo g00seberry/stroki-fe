@@ -8,6 +8,11 @@ export default {
       admin: 'Админ',
       super: 'Супер-админ',
     },
+    Types: 'Типы',
+    Types_one: 'Тип',
+    Confirm: {
+      'Confirm action': 'Подтвердите действие',
+    },
     Messages: {
       'User updated successfully': 'Пользователь успешно обновлен',
       'User activated successfully': 'Пользователь успешно активирован',
@@ -18,6 +23,9 @@ export default {
       'Roles removed': 'Роли удалены',
       'Role updated': 'Роль обновлена',
       'Role created': 'Роль создана',
+      'Taxonomy types removed': 'Типы таксономий удалены',
+      'Taxonomy type created': 'Тип таксономий создан',
+      'Taxonomy type updated': 'Тип таксономий обновлен',
     },
     Forms: {
       Login: 'Логин',
@@ -25,6 +33,7 @@ export default {
       Password: 'Пароль',
       'Confirm password': 'Повторите пароль',
       Captcha: 'Капча',
+      Name: 'Название',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',
@@ -50,8 +59,8 @@ export default {
       'Adimin users single': 'Пользователь: {{email}}',
       'Adimin roles': 'Роли',
       'Adimin roles single': 'Роль: {{role}}',
-      'Adimin taxonomies': 'Таксономии',
-      'Adimin taxonomies single': 'Таксономия: {{type}}',
+      'Adimin taxonomies types': 'Типы таксономий',
+      'Adimin taxonomies types single': 'Таксономии: {{type}}',
     },
 
     'Reset password': 'Восстановить пароль',
@@ -62,6 +71,7 @@ export default {
     'Sign up': 'Регистрация',
     Create: 'Создать',
     Delete: 'Удалить',
+    Cancel: 'Отмена',
     Resend: 'Повторить отправку',
   },
 }

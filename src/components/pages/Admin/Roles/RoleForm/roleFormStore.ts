@@ -3,7 +3,7 @@ import { UserRole } from '../../../../../types/ZUser'
 import $api from '../../../../../common/api'
 import { getApiUrl, getApiUrlWithParams } from '../../../../../common/getApiUrl'
 import { onError } from '../../../../../common/getErrorMessage'
-import { ZRole } from '../../../../../types/ZRole'
+import { ZRole, zRole } from '../../../../../types/ZRole'
 import { notification } from 'antd'
 import { tMessages } from '../../../../../lang/shortcuts'
 
@@ -48,7 +48,7 @@ export class RoleFormStore {
     try {
       this.setRoleId(id)
       const roleResp = await $api.get(getApiUrlWithParams('role', { id }))
-      const role = ZRole.parse(roleResp.data)
+      const role = zRole.parse(roleResp.data)
       this.setRole(role)
     } catch (error) {
       onError(error)
@@ -64,7 +64,7 @@ export class RoleFormStore {
         getApiUrlWithParams('role', { id: this.roleId }),
         values
       )
-      const role = ZRole.parse(roleResp.data)
+      const role = zRole.parse(roleResp.data)
       this.setRole(role)
       notification.success({ message: tMessages('Role updated') })
     } catch (error) {
@@ -78,7 +78,7 @@ export class RoleFormStore {
     this.setSaving(true)
     try {
       const roleResp = await $api.post(getApiUrl('roleNew'), values)
-      const role = ZRole.parse(roleResp.data)
+      const role = zRole.parse(roleResp.data)
       this.setRole(role)
       notification.success({ message: tMessages('Role created') })
       return role

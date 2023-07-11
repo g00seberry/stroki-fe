@@ -1,7 +1,7 @@
 import { TableStore } from '../../../tables/TableStore'
 import { getTableData, tableLoader } from '../../../tables/tableLoader'
 import { getApiUrl } from '../../../../common/getApiUrl'
-import { ZRole } from '../../../../types/ZRole'
+import { ZRole, zRole } from '../../../../types/ZRole'
 import $api from '../../../../common/api'
 import { onError } from '../../../../common/getErrorMessage'
 import { notification } from 'antd'
@@ -11,7 +11,7 @@ export class RolesStore {
   tableStore = new TableStore<ZRole, object>({
     fnLoad: tableLoader<ZRole, object>(
       getApiUrl('rolesSearch'),
-      ZRole,
+      zRole,
       getTableData
     ),
   })

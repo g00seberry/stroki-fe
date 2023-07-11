@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 import { DefaultOptionType } from 'antd/es/select'
 import { notification } from 'antd'
-import { ZUser } from '../../../../../types/ZUser'
+import { ZUser, zUser } from '../../../../../types/ZUser'
 import $api from '../../../../../common/api'
 import { getApiUrl, getApiUrlWithParams } from '../../../../../common/getApiUrl'
 import { onError } from '../../../../../common/getErrorMessage'
@@ -54,7 +54,7 @@ export class UserFormStore {
     try {
       this.setUserId(id)
       const userResp = await $api.get(getApiUrlWithParams('getUser', { id }))
-      const user = ZUser.parse(userResp.data)
+      const user = zUser.parse(userResp.data)
       this.setUser(user)
       const rolesResp = await $api.get(getApiUrl('roles'))
       this.setRolesOptions(userRoles2Options(rolesResp.data))
@@ -72,7 +72,7 @@ export class UserFormStore {
         makeUrl(getApiUrl('updateUser'), { id: this.userId }),
         values
       )
-      const user = ZUser.parse(res.data)
+      const user = zUser.parse(res.data)
       this.setUser(user)
       notification.success({ message: tMessages('User updated successfully') })
     } catch (error) {
