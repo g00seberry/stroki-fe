@@ -5,6 +5,7 @@ import { tPagesTitles } from '../../../../lang/shortcuts'
 import { useParams } from 'react-router-dom'
 import { taxonomiesTypeFormStore } from './TaxonomiesTypeForm/taxonomiesTypeFormStore'
 import { TaxonomiesTypeForm } from './TaxonomiesTypeForm/TaxonomiesTypeForm'
+import { t } from 'i18next'
 
 export const TaxonomiesTypesPageSingle: React.FC = observer(() => {
   const { id } = useParams()
@@ -16,7 +17,7 @@ export const TaxonomiesTypesPageSingle: React.FC = observer(() => {
   return (
     <AdminPageLayout
       pageTitle={tPagesTitles('Adimin taxonomies types single', {
-        type: taxonomiesTypeFormStore.type?.name,
+        type: taxonomiesTypeFormStore.type?.name || t('Create'),
       })}
     >
       <TaxonomiesTypeForm store={taxonomiesTypeFormStore} />
