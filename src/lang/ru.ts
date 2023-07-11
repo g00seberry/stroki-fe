@@ -60,7 +60,7 @@ export default {
       'Adimin roles': 'Роли',
       'Adimin roles single': 'Роль: {{role}}',
       'Adimin taxonomies types': 'Типы таксономий',
-      'Adimin taxonomies types single': 'Таксономии: {{type}}',
+      'Adimin taxonomies types single': 'Тип таксономий: {{type}}',
     },
 
     'Reset password': 'Восстановить пароль',
