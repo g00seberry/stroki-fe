@@ -20,10 +20,12 @@ export const apiUrls = {
   rolesSearch: '/roles/search',
   rolesDelete: '/roles/delete',
   //taxonomies
-  taxonomiesTypesSearch: '/taxonomies/types/search',
-  taxonomiesTypesDeleteList: '/taxonomies/types/list/delete',
-  taxonomiesTypesNew: '/taxonomies/types/new',
-  taxonomiesType: '/taxonomies/types/:id',
+  taxonomiesSearch: '/taxonomies/search',
+  taxonomiesDeleteList: '/taxonomies/delete/list',
+  taxonomiesNew: '/taxonomies/new',
+  taxonomy: '/taxonomies/:id',
+  //taxonomy items
+  taxonomyItems: '/taxonomies/:id/items',
 }
 
 export const getApiUrl = (url: keyof typeof apiUrls) => `/api${apiUrls[url]}`

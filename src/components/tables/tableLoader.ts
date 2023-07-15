@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ZodObject, z } from 'zod'
+import { ZodType, z } from 'zod'
 import $api from '../../common/api'
 import { FnLoad, TableLoadParams, TableResponse } from './TableStore'
 import qs from 'query-string'
@@ -34,7 +34,7 @@ export const getTableData: TableDataProvider = <TFilters extends object>(
 export const tableLoader =
   <TRow extends object, TFilters extends object>(
     url: string,
-    rowSchema: ZodObject<any>,
+    rowSchema: ZodType,
     dataProvider: TableDataProvider,
     extraFilters?: TFilters
   ): FnLoad<TRow, TFilters> =>

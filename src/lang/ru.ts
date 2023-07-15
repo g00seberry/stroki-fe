@@ -8,8 +8,7 @@ export default {
       admin: 'Админ',
       super: 'Супер-админ',
     },
-    Types: 'Типы',
-    Types_one: 'Тип',
+
     Confirm: {
       'Confirm action': 'Подтвердите действие',
     },
@@ -23,9 +22,9 @@ export default {
       'Roles removed': 'Роли удалены',
       'Role updated': 'Роль обновлена',
       'Role created': 'Роль создана',
-      'Taxonomy types removed': 'Типы таксономий удалены',
-      'Taxonomy type created': 'Тип таксономий создан',
-      'Taxonomy type updated': 'Тип таксономий обновлен',
+      'Taxonomy removed': 'Таксономии удалены',
+      'Taxonomy created': 'Таксономия создана',
+      'Taxonomy updated': 'Таксономия обновлена',
     },
     Forms: {
       Login: 'Логин',
@@ -34,9 +33,13 @@ export default {
       'Confirm password': 'Повторите пароль',
       Captcha: 'Капча',
       Name: 'Название',
+      Title: 'Заголовок',
+      Types: 'Типы',
+      Types_one: 'Тип',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',
+      'Basic information': 'Основная информация',
     },
     Errors: {
       Attention: 'Внимание',
@@ -59,8 +62,9 @@ export default {
       'Adimin users single': 'Пользователь: {{email}}',
       'Adimin roles': 'Роли',
       'Adimin roles single': 'Роль: {{role}}',
-      'Adimin taxonomies types': 'Типы таксономий',
-      'Adimin taxonomies types single': 'Тип таксономий: {{type}}',
+      'Adimin taxonomies items': 'Элементы таксономий',
+      'Adimin taxonomies': 'Таксономии',
+      'Adimin taxonomies single': 'Таксономия: {{type}}',
     },
 
     'Reset password': 'Восстановить пароль',

@@ -1,31 +1,35 @@
 import { TableStore } from '../../../tables/TableStore'
 import { getTableData, tableLoader } from '../../../tables/tableLoader'
 import { getApiUrl } from '../../../../common/getApiUrl'
-import { ZRole, zRole } from '../../../../types/ZRole'
 import $api from '../../../../common/api'
 import { onError } from '../../../../common/getErrorMessage'
 import { notification } from 'antd'
 import { tMessages } from '../../../../lang/shortcuts'
+import { ZTaxonomy, zTaxonomy } from '../../../../types/ZTaxonomy'
 import { makeAutoObservable } from 'mobx'
 
-export class RolesStore {
-  tableStore = new TableStore<ZRole, object>({
-    fnLoad: tableLoader<ZRole, object>(
-      getApiUrl('rolesSearch'),
-      zRole,
+export class TaxonomiesStore {
+  tableStore = new TableStore<ZTaxonomy, object>({
+    fnLoad: tableLoader<ZTaxonomy, object>(
+      getApiUrl('taxonomiesSearch'),
+      zTaxonomy,
       getTableData
     ),
   })
   constructor() {
     makeAutoObservable(this)
   }
-  async deleteRoles() {
-    try {
-      await $api.post(getApiUrl('rolesDelete'), {
-        rolesIds: this.tableStore.selected.map((role) => role.id),
-      })
 
-      notification.info({ message: tMessages('Roles removed') })
+  get canDelete() {
+    return this.tableStore.selected.length
+  }
+
+  async deleteSelected() {
+    try {
+      await $api.post(getApiUrl('taxonomiesDeleteList'), {
+        ids: this.tableStore.selected.map(({ id }) => id),
+      })
+      notification.info({ message: tMessages('Taxonomy removed') })
     } catch (error) {
       onError(error)
     } finally {
@@ -34,4 +38,4 @@ export class RolesStore {
   }
 }
 
-export const rolesStore = new RolesStore()
+export const taxonomiesStore = new TaxonomiesStore()

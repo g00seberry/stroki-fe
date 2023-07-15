@@ -14,6 +14,7 @@ import { tPagesTitles } from '../../lang/shortcuts'
 import { t } from 'i18next'
 import { UserIsNotActivated } from '../pages/UserIsNotActivated/UserIsNotActivated'
 import { observer } from 'mobx-react-lite'
+import Title from 'antd/es/typography/Title'
 
 type PropsPageLayout = React.PropsWithChildren & {
   pageTitle?: React.ReactNode
@@ -69,7 +70,7 @@ export const PageLayout: React.FC<PropsPageLayout> = observer(
     ]
 
     return (
-      <Layout>
+      <Layout className={style.layout}>
         <Header>
           <Row justify="end">
             <Col span={6}>
@@ -82,9 +83,9 @@ export const PageLayout: React.FC<PropsPageLayout> = observer(
             )}
           </Row>
         </Header>
-        <UserIsNotActivated />
         <Content className={style.content}>
-          {pageTitle && <div>{pageTitle}</div>}
+          <UserIsNotActivated />
+          {pageTitle && <Title>{pageTitle}</Title>}
           {children ? children : <Outlet />}
         </Content>
       </Layout>

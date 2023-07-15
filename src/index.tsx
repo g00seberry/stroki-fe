@@ -5,6 +5,8 @@ import { AppContext } from './AppContext'
 import { App } from './components/App/App'
 import { initLang } from './lang/initLang'
 import { BrowserRouter } from 'react-router-dom'
+import './style.less'
+
 initLang()
 const container = document.getElementById('root')
 if (container) {

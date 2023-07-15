@@ -14,9 +14,9 @@ import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle
 import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
 import { RolesPageSingle } from '../components/pages/Admin/Roles/RolesPageSingle'
 import { ResetPassword } from '../components/pages/Auth/ResetPassword'
-import { TaxonomiesTypesPage } from '../components/pages/Admin/TaxonomiesTypes/TaxonomiesTypesPage'
 import { IsAdmin, IsLoggedIn, NotLoggedIn } from '../components/Condition'
-import { TaxonomiesTypesPageSingle } from '../components/pages/Admin/TaxonomiesTypes/TaxonomiesTypesPageSingle'
+import { TaxonomiesPageSingle } from '../components/pages/Admin/Taxonomies/TaxonomiesPageSingle'
+import { TaxonomiesPage } from '../components/pages/Admin/Taxonomies/TaxonomiesPage'
 
 export enum PageUrl {
   Root = '/',
@@ -31,12 +31,16 @@ export enum PageUrl {
   Admin = '/admin',
   Users = '/admin/users',
   UsersSingle = '/admin/users/:id',
+  // roles
   Roles = '/admin/roles',
   RolesSingle = '/admin/roles/:id',
   RolesSingleNew = '/admin/roles/new',
-  TaxonomiesTypes = '/admin/taxonomies/types',
-  TaxonomiesTypesSingle = '/admin/taxonomies/types/:id',
-  TaxonomiesTypesNew = '/admin/taxonomies/types/new',
+  // taxonomies
+  Taxonomies = '/admin/taxonomies',
+  TaxonomiesSingle = '/admin/taxonomies/:id',
+  TaxonomiesNew = '/admin/taxonomies/new',
+  // taxonomy items
+  TaxonomiesItems = '/admin/taxonomies/items',
 }
 
 export const createRouteStd = (
@@ -158,30 +162,30 @@ export const appRoutes = (appStore: AppStore) => {
       ),
       isAdmin
     ),
-    // таксономии
+    // taxonomies
     createWithCond(
       createRouteStd(
-        PageUrl.TaxonomiesTypes,
+        PageUrl.Taxonomies,
         <IsAdmin>
-          <TaxonomiesTypesPage />
+          <TaxonomiesPage />
         </IsAdmin>
       ),
       isAdmin
     ),
     createWithCond(
       createRouteStd(
-        PageUrl.TaxonomiesTypesSingle,
+        PageUrl.TaxonomiesSingle,
         <IsAdmin>
-          <TaxonomiesTypesPageSingle />
+          <TaxonomiesPageSingle />
         </IsAdmin>
       ),
       isAdmin
     ),
     createWithCond(
       createRouteStd(
-        PageUrl.TaxonomiesTypesNew,
+        PageUrl.TaxonomiesNew,
         <IsAdmin>
-          <TaxonomiesTypesPageSingle />
+          <TaxonomiesPageSingle />
         </IsAdmin>
       ),
       isAdmin
