@@ -25,3 +25,8 @@ export const tPagesTitles = (
   key: keyof (typeof keys.translation)['Pages titles'],
   opt: TOptions = {}
 ) => t(`Pages titles.${key}`, opt)
+
+export const tConfirms = (
+  key: keyof (typeof keys.translation)['Confirm'],
+  opt: TOptions = {}
+) => t(`Confirm.${key}`, opt)

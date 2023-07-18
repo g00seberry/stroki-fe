@@ -3,8 +3,10 @@ import { Button, Form, FormInstance, Space } from 'antd'
 import { observer } from 'mobx-react-lite'
 import React from 'react'
 import style from './FormStd.module.less'
-import { tForms } from '../../lang/shortcuts'
+import { tConfirms, tForms } from '../../lang/shortcuts'
 import { Loading } from '../Loading/Loading'
+import { ButtonWithConfirm } from '../ButtonWithConfirm'
+import { useForm } from 'antd/es/form/Form'
 
 export type FormItemDef = {
   render: (ctx?: FormInstance) => React.ReactNode
@@ -31,6 +33,7 @@ type PropsFormStd<TFormData> = Omit<
    */
   pending?: boolean
   heading?: string
+  confirmSubmit?: boolean
   submit: (values: TFormData) => void
   cancel?: () => void
 }
@@ -45,28 +48,51 @@ export const FormStd = observer(
     extraButtons,
     heading,
     loading,
-    pending: saving,
+    pending,
+    confirmSubmit,
     submit,
     cancel,
     ...props
   }: PropsFormStd<TFormData>) => {
+    const [form] = useForm<TFormData>()
     return (
       <Loading loading={!!loading}>
-        <Form
+        <Form<TFormData>
           size="large"
           layout="vertical"
           scrollToFirstError
           {...props}
           onFinish={(values: TFormData) => submit(values)}
-          disabled={saving}
+          disabled={pending}
+          form={form}
         >
           {heading && <div className={style.heading}>{heading}</div>}
           {formItems.map((item) => item.render())}
           <Space>
-            <Button htmlType="submit" type="primary" loading={saving}>
-              {submitText || tForms('Submit')}
-              {submitIcon}
-            </Button>
+            {confirmSubmit ? (
+              <ButtonWithConfirm
+                type="primary"
+                loading={pending}
+                confirmProps={{
+                  onOk: () => {
+                    form.submit()
+                  },
+                  title: tConfirms('Confirm action'),
+                  type: 'warning',
+                  okButtonProps: { danger: true },
+                  okText: submitText || tForms('Submit'),
+                }}
+              >
+                {submitText || tForms('Submit')}
+                {submitIcon}
+              </ButtonWithConfirm>
+            ) : (
+              <Button htmlType="submit" type="primary" loading={pending}>
+                {submitText || tForms('Submit')}
+                {submitIcon}
+              </Button>
+            )}
+
             <Button onClick={() => cancel?.()} icon={cancelIcon}>
               {cancelText || tForms('Cancel')}
             </Button>

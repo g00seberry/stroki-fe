@@ -1,11 +1,11 @@
 import { z } from 'zod'
-import { ZRole } from './ZRole'
+import { zRole } from './ZRole'
 export type UserRole = 'draft' | 'user' | 'admin' | 'super'
 
-export const ZUser = z.object({
+export const zUser = z.object({
   id: z.number(),
   email: z.string(),
-  roles: ZRole.array(),
+  roles: zRole.array(),
 })
 
-export type ZUser = z.infer<typeof ZUser>
+export type ZUser = z.infer<typeof zUser>

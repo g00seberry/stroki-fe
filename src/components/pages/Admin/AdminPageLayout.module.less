@@ -1,8 +1,16 @@
-.heading {
-  font-size: 24px;
+.layout {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 260px 1fr;
 }
 .content {
-  padding: 30px;
-  display: grid;
+  padding: 0 30px 30px 30px;
+  display: flex;
+  flex-direction: column;
   row-gap: 15px;
+  overflow: auto;
+}
+.sider {
+  height: 100%;
+  overflow: auto;
 }

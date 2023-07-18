@@ -8,6 +8,10 @@ export default {
       admin: 'Админ',
       super: 'Супер-админ',
     },
+
+    Confirm: {
+      'Confirm action': 'Подтвердите действие',
+    },
     Messages: {
       'User updated successfully': 'Пользователь успешно обновлен',
       'User activated successfully': 'Пользователь успешно активирован',
@@ -18,6 +22,12 @@ export default {
       'Roles removed': 'Роли удалены',
       'Role updated': 'Роль обновлена',
       'Role created': 'Роль создана',
+      'Taxonomy removed': 'Таксономии удалены',
+      'Taxonomy created': 'Таксономия создана',
+      'Taxonomy updated': 'Таксономия обновлена',
+      'Taxonomy item removed': 'Элемент таксономии удален',
+      'Taxonomy item created': 'Элемент таксономии создан',
+      'Taxonomy item updated': 'Элемент таксономии обновлен',
     },
     Forms: {
       Login: 'Логин',
@@ -25,9 +35,19 @@ export default {
       Password: 'Пароль',
       'Confirm password': 'Повторите пароль',
       Captcha: 'Капча',
+      Name: 'Название',
+      Title: 'Заголовок',
+      Types: 'Типы',
+      Types_one: 'Тип',
       'Reload captcha': 'Обновить капчу',
       Submit: 'Сохранить',
       Cancel: 'Отмена',
+      'Basic information': 'Основная информация',
+      'Taxonomy item adding': 'Добавление элемента таксономии',
+      'Taxonomy item removing': 'Удаление элемента таксономии',
+      'Taxonomy item editing': 'Редактирование элемента таксономии',
+      'Remove child elements': 'Удалить дочерние элементы',
+      'Parent element': 'Родительский элемент',
     },
     Errors: {
       Attention: 'Внимание',
@@ -50,6 +70,9 @@ export default {
       'Adimin users single': 'Пользователь: {{email}}',
       'Adimin roles': 'Роли',
       'Adimin roles single': 'Роль: {{role}}',
+      'Adimin taxonomies items': 'Элементы таксономий',
+      'Adimin taxonomies': 'Таксономии',
+      'Adimin taxonomies single': 'Таксономия: {{type}}',
     },
 
     'Reset password': 'Восстановить пароль',
@@ -60,6 +83,8 @@ export default {
     'Sign up': 'Регистрация',
     Create: 'Создать',
     Delete: 'Удалить',
+    Edit: 'Редактировать',
+    Cancel: 'Отмена',
     Resend: 'Повторить отправку',
   },
 }

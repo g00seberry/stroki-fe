@@ -28,7 +28,9 @@ export const RoleForm: React.FC<PropsRoleForm> = observer(({ store }) => {
   const navigate = useNavigate()
   const createRole = (values: RoleFormData) =>
     store.create(values).then((role) => {
-      navigate(makeUrl(PageUrl.RolesSingle, { id: role?.id }))
+      {
+        if (role) navigate(makeUrl(PageUrl.RolesSingle, { id: role?.id }))
+      }
     })
   const updateRole = (values: RoleFormData) => store.update(values)
   const actualHandler = store.isNew ? createRole : updateRole

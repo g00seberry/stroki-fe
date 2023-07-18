@@ -1,5 +1,5 @@
 import React from 'react'
-import { RouteObject, createBrowserRouter } from 'react-router-dom'
+import { RouteObject } from 'react-router-dom'
 import { NoMatch } from '../components/pages/NoMatch/NoMatch'
 import { createWithCond, filterWithCond } from './createWithCond'
 import { ProfilePage } from '../components/pages/ProfilePage/ProfilePage'
@@ -14,6 +14,9 @@ import { UsersPageSingle } from '../components/pages/Admin/Users/UsersPageSingle
 import { RolesPage } from '../components/pages/Admin/Roles/RolesPage'
 import { RolesPageSingle } from '../components/pages/Admin/Roles/RolesPageSingle'
 import { ResetPassword } from '../components/pages/Auth/ResetPassword'
+import { IsAdmin, IsLoggedIn, NotLoggedIn } from '../components/Condition'
+import { TaxonomiesPageSingle } from '../components/pages/Admin/Taxonomies/TaxonomiesPageSingle'
+import { TaxonomiesPage } from '../components/pages/Admin/Taxonomies/TaxonomiesPage'
 
 export enum PageUrl {
   Root = '/',
@@ -28,9 +31,16 @@ export enum PageUrl {
   Admin = '/admin',
   Users = '/admin/users',
   UsersSingle = '/admin/users/:id',
+  // roles
   Roles = '/admin/roles',
   RolesSingle = '/admin/roles/:id',
   RolesSingleNew = '/admin/roles/new',
+  // taxonomies
+  Taxonomies = '/admin/taxonomies',
+  TaxonomiesSingle = '/admin/taxonomies/:id',
+  TaxonomiesNew = '/admin/taxonomies/new',
+  // taxonomy items
+  TaxonomiesItems = '/admin/taxonomies/items',
 }
 
 export const createRouteStd = (
@@ -43,39 +53,144 @@ export const createRouteStd = (
   errorElement: errorElement || <NoMatch />,
 })
 
-export const createAppRoutes = (appStore: AppStore): RouteObject[] => {
+export const appRoutes = (appStore: AppStore) => {
   const isAdmin = () => appStore.isAdmin
   const routesWithcond = [
-    createWithCond(createRouteStd(PageUrl.Root, <ProfilePage />)),
-    createWithCond(createRouteStd(PageUrl.Settings, <SettingsPage />)),
+    createWithCond(createRouteStd(PageUrl.Root, <Home />)),
+    // auth
+    createWithCond(
+      createRouteStd(
+        PageUrl.Login,
+        <NotLoggedIn>
+          <Login />
+        </NotLoggedIn>
+      )
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.SignUp,
+        <NotLoggedIn>
+          <SignUp />
+        </NotLoggedIn>
+      )
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.ResetPassword,
+        <NotLoggedIn>
+          <ResetPassword />
+        </NotLoggedIn>
+      )
+    ),
+    // internal
+    createWithCond(
+      createRouteStd(
+        PageUrl.Profile,
+        <IsLoggedIn>
+          <ProfilePage />
+        </IsLoggedIn>
+      )
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.Settings,
+        <IsLoggedIn>
+          <SettingsPage />
+        </IsLoggedIn>
+      )
+    ),
     /**
      * Admin routes
+     * Создание происходит через createWithCond с функцией проерки isAdmin() потому что в случае админки
+     * мы вообще не хотим, чтобы эти роуты существовали. Если бы роуты админа создавались только
+     * с оберткой <IsAdmin>, то при попытке перехода на админский страницы произошел бы редирект
+     * на дефолтную страницу, что само по себе служило бы подсказкой к тому, что эти страницы есть
      */
-    createWithCond(createRouteStd(PageUrl.Admin, <AdminPage />), isAdmin),
-    // Users
-    createWithCond(createRouteStd(PageUrl.Users, <UsersPage />), isAdmin),
     createWithCond(
-      createRouteStd(PageUrl.UsersSingle, <UsersPageSingle />),
+      createRouteStd(
+        PageUrl.Admin,
+        <IsAdmin>
+          <AdminPage />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    // Users
+    createWithCond(
+      createRouteStd(
+        PageUrl.Users,
+        <IsAdmin>
+          <UsersPage />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.UsersSingle,
+        <IsAdmin>
+          <UsersPageSingle />
+        </IsAdmin>
+      ),
       isAdmin
     ),
     // Roles
-    createWithCond(createRouteStd(PageUrl.Roles, <RolesPage />), isAdmin),
     createWithCond(
-      createRouteStd(PageUrl.RolesSingle, <RolesPageSingle />),
+      createRouteStd(
+        PageUrl.Roles,
+        <IsAdmin>
+          <RolesPage />
+        </IsAdmin>
+      ),
       isAdmin
     ),
     createWithCond(
-      createRouteStd(PageUrl.RolesSingleNew, <RolesPageSingle />),
+      createRouteStd(
+        PageUrl.RolesSingle,
+        <IsAdmin>
+          <RolesPageSingle />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.RolesSingleNew,
+        <IsAdmin>
+          <RolesPageSingle />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    // taxonomies
+    createWithCond(
+      createRouteStd(
+        PageUrl.Taxonomies,
+        <IsAdmin>
+          <TaxonomiesPage />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.TaxonomiesSingle,
+        <IsAdmin>
+          <TaxonomiesPageSingle />
+        </IsAdmin>
+      ),
+      isAdmin
+    ),
+    createWithCond(
+      createRouteStd(
+        PageUrl.TaxonomiesNew,
+        <IsAdmin>
+          <TaxonomiesPageSingle />
+        </IsAdmin>
+      ),
       isAdmin
     ),
   ]
 
   return filterWithCond(routesWithcond)
 }
-
-export const routerNotAuth = createBrowserRouter([
-  createRouteStd(PageUrl.Root, <Home />),
-  createRouteStd(PageUrl.Login, <Login />),
-  createRouteStd(PageUrl.SignUp, <SignUp />),
-  createRouteStd(PageUrl.ResetPassword, <ResetPassword />),
-])

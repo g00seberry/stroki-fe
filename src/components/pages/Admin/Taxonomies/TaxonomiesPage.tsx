@@ -4,18 +4,18 @@ import { AdminPageLayout } from '../AdminPageLayout'
 import { TablePageLayout } from '../../../tables/TablePageLayout'
 import { TableFacade } from '../../../tables/TableFacade'
 import { AColumn } from '../../../tables/AsyncTable'
-import { rolesStore } from './rolesStore'
+import { taxonomiesStore } from './taxonomiesStore'
 import { useNavigate } from 'react-router-dom'
 import { PageUrl } from '../../../../common/router'
 import { makeUrl } from '../../../../common/makeUrl'
-import { ZRole } from '../../../../types/ZRole'
-import { t } from 'i18next'
+import { tForms, tPagesTitles } from '../../../../lang/shortcuts'
+import { ZTaxonomy } from '../../../../types/ZTaxonomy'
 import { Button, Space } from 'antd'
+import { t } from 'i18next'
 import { PlusCircleOutlined } from '@ant-design/icons'
 import { DeleteButton } from '../../../DeleteButton'
-import { tPagesTitles } from '../../../../lang/shortcuts'
 
-const columns = (): AColumn<ZRole>[] => [
+const columns = (): AColumn<ZTaxonomy>[] => [
   {
     key: 'id',
     title: 'ID',
@@ -23,37 +23,49 @@ const columns = (): AColumn<ZRole>[] => [
     dataIndex: 'id',
   },
   {
-    key: 'role',
-    title: t('Roles', { count: 1 }),
+    key: 'title',
+    title: tForms('Title'),
     width: '100px',
-    dataIndex: 'role',
+    dataIndex: 'title',
+  },
+  {
+    key: 'name',
+    title: tForms('Name'),
+    width: '100px',
+    dataIndex: 'name',
+  },
+  {
+    key: 'type',
+    title: tForms('Types_one'),
+    width: '100px',
+    dataIndex: 'type',
   },
 ]
 
-const RolesTable: React.FC = observer(() => {
+const TaxonomiesTable: React.FC = observer(() => {
   const navigate = useNavigate()
-  const toRolePage = (role: ZRole) =>
-    navigate(makeUrl(PageUrl.RolesSingle, { id: role.id }))
-  const toCreateRolePage = () => navigate(PageUrl.RolesSingleNew)
+  const toSinglePage = ({ id }: ZTaxonomy) =>
+    navigate(makeUrl(PageUrl.TaxonomiesSingle, { id }))
+  const toNewPage = () => navigate(PageUrl.TaxonomiesNew)
   return (
     <TablePageLayout>
       <TableFacade
-        store={rolesStore.tableStore}
+        store={taxonomiesStore.tableStore}
         columns={columns()}
-        onRowClick={toRolePage}
+        onRowClick={toSinglePage}
         selectionType="checkbox"
         middlePart={
           <Space>
             <Button
+              onClick={toNewPage}
               type="primary"
-              onClick={toCreateRolePage}
               icon={<PlusCircleOutlined />}
             >
               {t('Create')}
             </Button>
             <DeleteButton
-              handleDelete={() => rolesStore.deleteRoles()}
-              disabled={!rolesStore.tableStore.selected.length}
+              handleDelete={() => taxonomiesStore.deleteSelected()}
+              disabled={!taxonomiesStore.canDelete}
             />
           </Space>
         }
@@ -62,10 +74,10 @@ const RolesTable: React.FC = observer(() => {
   )
 })
 
-export const RolesPage: React.FC = observer(() => {
+export const TaxonomiesPage: React.FC = observer(() => {
   return (
-    <AdminPageLayout pageTitle={tPagesTitles('Adimin roles')}>
-      <RolesTable />
+    <AdminPageLayout pageTitle={tPagesTitles('Adimin taxonomies')}>
+      <TaxonomiesTable />
     </AdminPageLayout>
   )
 })

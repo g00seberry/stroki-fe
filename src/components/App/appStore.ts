@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { onError } from '../../common/getErrorMessage'
-import { ZUser } from '../../types/ZUser'
+import { ZUser, zUser } from '../../types/ZUser'
 import $api, { getAuthToken, setAuthToken } from '../../common/api'
 import { RegistraionFromData } from '../../types/RegistraionFromData'
 import { AuthService } from '../../services/AuthService'
@@ -48,7 +48,7 @@ export class AppStore {
     this.setPending(true)
     try {
       const authData = await AuthService.signUp(email, password)
-      const user = ZUser.parse(authData.user)
+      const user = zUser.parse(authData.user)
       this.setUser(user)
       setAuthToken(authData.accessToken)
       return true
@@ -64,7 +64,7 @@ export class AppStore {
     this.setPending(true)
     try {
       const authData = await AuthService.login(email, password)
-      const user = ZUser.parse(authData.user)
+      const user = zUser.parse(authData.user)
       this.setUser(user)
       setAuthToken(authData.accessToken)
       return true
@@ -129,7 +129,7 @@ export class AppStore {
     this.setPending(true)
     try {
       const authData = await AuthService.refreshAuth()
-      const user = ZUser.parse(authData.user)
+      const user = zUser.parse(authData.user)
       this.setUser(user)
       setAuthToken(authData.accessToken)
       return authData
