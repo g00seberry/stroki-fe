@@ -26,6 +26,9 @@ export const apiUrls = {
   taxonomy: '/taxonomies/:id',
   //taxonomy items
   taxonomyItems: '/taxonomies/:id/items',
+  taxonomyItemsNew: '/taxonomies/:id/items/new',
+  taxonomyItemsUpdate: '/taxonomies/:id/items/:itemId',
+  taxonomyItemsDelete: '/taxonomies/:id/items/:itemId/delete',
 }
 
 export const getApiUrl = (url: keyof typeof apiUrls) => `/api${apiUrls[url]}`

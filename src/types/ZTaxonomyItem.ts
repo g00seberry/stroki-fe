@@ -1,11 +1,8 @@
 import { z } from 'zod'
 import { ZTaxonomy, zTaxonomy } from './ZTaxonomy'
+import { ZTreeNode } from './ZTreeNode'
 
-export type ZTaxonomyItem = {
-  id: number
-  parentId: number | null
-  name: string
-  title: string
+export type ZTaxonomyItem = Omit<ZTreeNode, 'key' | 'children'> & {
   taxonomy: ZTaxonomy
   children: ZTaxonomyItem[]
 }
